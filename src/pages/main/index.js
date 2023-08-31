@@ -1,8 +1,13 @@
 import * as React from 'react';
+import {
+    Custombody
+} from "../../components";
 
 function Index() {
     return(
-        <div>main</div>
+        <Custombody>
+            <div>asdas</div>
+        </Custombody>
     )
 }
 
