@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {
-    Custombody
+    Custombody, Sidebar
 } from "../../components";
 
 function Index() {
     return(
         <Custombody>
-            <div>asdas</div>
+            <Sidebar>
+
+            </Sidebar>
         </Custombody>
     )
 }
