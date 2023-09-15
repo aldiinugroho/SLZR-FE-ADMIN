@@ -1,0 +1,68 @@
+$basered: #B92929;
+
+.stylemainsidebar {
+  display: flex;
+  flex-direction: row;
+}
+
+.stylesidebar {
+  position: sticky;
+  top: 0;
+  background-color: $basered;
+  width: 12rem;
+  height: 100vh;
+}
+
+.stylesidebarimg {
+  width: 100%;
+  height: 80px;
+  background-color: #61dafb;
+}
+
+.stylesidebartab {
+  border-color: black;
+  border-style: solid;
+  border-width: thin;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 15px;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.stylesidebartabnobottomborder {
+  border-color: black;
+  border-style: solid;
+  border-width: thin;
+  padding: 1rem;
+  border-bottom-width: 0;
+  font-weight: bold;
+  font-size: 15px;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.stylesidebartabnobottomborderchild {
+  border-color: black;
+  border-style: solid;
+  border-width: thin;
+  padding: 1rem;
+  padding-left: 2rem;
+  font-size: 15px;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.styleschildidebartabnobottomborderchild {
+  border-color: black;
+  border-style: solid;
+  border-width: thin;
+  padding: 1rem;
+  padding-left: 2rem;
+  font-size: 15px;
+  border-bottom-width: 0;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}

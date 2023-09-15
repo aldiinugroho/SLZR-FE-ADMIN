@@ -3,12 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Customalert} from './components';
+
+const Wrapper = () => {
+    return(
+        <Customalert.CustomAlertProvider>
+            <App />
+        </Customalert.CustomAlertProvider>
+    )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Wrapper />
 );
 
 // If you want to start measuring performance in your app, pass a function

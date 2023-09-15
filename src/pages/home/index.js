@@ -1,8 +1,13 @@
 import * as React from 'react';
+import {Custombody, Customheader, Sidebar} from "../../components";
 
 function Index() {
     return(
-        <div>home</div>
+        <Custombody>
+            <Sidebar>
+                <Customheader />
+            </Sidebar>
+        </Custombody>
     )
 }
 

@@ -1,7 +1,9 @@
 import Home from './home'
-import Main from './main'
+import Register from './register'
+import Main from "./main";
 
 export {
     Home,
+    Register,
     Main
 }
