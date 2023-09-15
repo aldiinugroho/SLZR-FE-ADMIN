@@ -138,8 +138,35 @@ async  function POST({
     }
 }
 
+async  function PATCH({
+    body = {},
+    headers = {},
+    route = "",
+    path = "",
+    withBodyStringify = true
+}) {
+    try {
+        let requestOptions = {
+            method: 'PATCH',
+            headers: {
+                ...baseHeaders,
+                ...headers,
+                Authorization: new LocalStorage().getToken() === null ? "" : `Bearer ${new LocalStorage().getToken()}`
+            },
+            body: withBodyStringify ? JSON.stringify(body) : body
+        };
+        const rawResponse = await fetch(`${MAINURL}${route}${path}`, requestOptions);
+        const parsedResponse = await responseParser(rawResponse)
+        return parsedResponse
+    } catch (error) {
+        console.log("err",error);
+        return await responseParser(null,error)
+    }
+}
+
 export {
     GET,
     POST,
-    DELETE
+    DELETE,
+    PATCH
 }

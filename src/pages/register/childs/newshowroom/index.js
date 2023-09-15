@@ -69,8 +69,9 @@ function TableShow() {
         }
     }
 
-    function goedit() {
-        navigate("/register/new-showroom/formsubmit/update")
+    function goedit(showroomId = "") {
+        console.log(showroomId);
+        navigate(`/register/new-showroom/formsubmit/update/${showroomId}`)
     }
 
     async function godelete(showroomId = "") {

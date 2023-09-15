@@ -91,6 +91,14 @@ export  const  Routing = [
                 showSideBar: false
             }),
             new ChildRouting({
+                name: "Register Form Showroom",
+                path: "/new-showroom/formsubmit/:type/:showroomId",
+                element: <Customloginchecker>
+                    <Newshowroomformsubmit />
+                </Customloginchecker>,
+                showSideBar: false
+            }),
+            new ChildRouting({
                 name: "Register Car",
                 path: "/new-car",
                 element: <Customloginchecker>
