@@ -84,7 +84,7 @@ export  const  Routing = [
             }),
             new ChildRouting({
                 name: "Register Form Showroom",
-                path: "/new-showroom/formsubmit",
+                path: "/new-showroom/formsubmit/:type",
                 element: <Customloginchecker>
                     <Newshowroomformsubmit />
                 </Customloginchecker>,

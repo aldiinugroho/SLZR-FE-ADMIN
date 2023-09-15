@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {Custombody, Customheader, Sidebar} from "../../../../components";
+import {Customalert, Custombody, Customheader, Sidebar} from "../../../../components";
 import "./stylenewshowroom.css"
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {getShowroom} from "../../../../services/showroom";
 import {requestShowroom} from "../../../../request";
+import { storeListShowroom } from './state';
 
 function Index() {
 
@@ -22,7 +23,7 @@ function FormBody() {
     const navigate = useNavigate()
 
     function gotoformsubmit() {
-        navigate("/register/new-showroom/formsubmit")
+        navigate("/register/new-showroom/formsubmit/create")
     }
 
     return(
@@ -51,38 +52,9 @@ function FormBody() {
 }
 
 function TableShow() {
-    const data = [
-        new ModelNewShowroom({
-            id: "123",
-            name: "didi1",
-            phone: "087787666008",
-            alamat: "jalan taman taman"
-        }),
-        new ModelNewShowroom({
-            id: "123",
-            name: "didi2",
-            phone: "087787666008",
-            alamat: "jalan taman taman"
-        }),
-        new ModelNewShowroom({
-            id: "123",
-            name: "didi3",
-            phone: "087787666008",
-            alamat: "jalan taman taman"
-        }),
-        new ModelNewShowroom({
-            id: "123",
-            name: "didi3",
-            phone: "087787666008",
-            alamat: "jalan taman taman"
-        }),
-        new ModelNewShowroom({
-            id: "123",
-            name: "didi3",
-            phone: "087787666008",
-            alamat: "jalan taman taman"
-        })
-    ]
+    const navigate = useNavigate()
+    const store = storeListShowroom((state) => state)
+    const errmsg = Customalert.useCustomAlert()
 
     useEffect(() => {
         getlistdata()
@@ -93,6 +65,19 @@ function TableShow() {
         try {
             await requestShowroom.getList()
         } catch (e) {
+            errmsg(e)
+        }
+    }
+
+    function goedit() {
+        navigate("/register/new-showroom/formsubmit/update")
+    }
+
+    async function godelete(showroomId = "") {
+        try {
+            await requestShowroom.reqDelete(showroomId)
+        } catch (error) {
+            errmsg(error)
         }
     }
 
@@ -112,18 +97,18 @@ function TableShow() {
                     <th className="styletablecell">Action</th>
                 </tr>
                 </thead>
-                {data?.map((i,x) => {
+                {store.data?.map((i,x) => {
                     if (x % 2 === 0) {
                         return (
                             <tbody key={x}>
                             <tr>
                                 <td className="styletablecell">{x+1}</td>
-                                <td className="styletablecell">{i?.name}</td>
-                                <td className="styletablecell">{i?.alamat}</td>
-                                <td className="styletablecell">{i?.phone}</td>
+                                <td className="styletablecell">{i?.showroomName}</td>
+                                <td className="styletablecell">{i?.showroomAddress}</td>
+                                <td className="styletablecell">{i?.showroomPhone}</td>
                                 <td>
-                                    <button>update</button>
-                                    <button>delete</button>
+                                    <button onClick={() => goedit(i?.showroomId)}>update</button>
+                                    <button onClick={() => godelete(i?.showroomId)}>delete</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -133,12 +118,12 @@ function TableShow() {
                             <tbody key={x}>
                             <tr style={{ backgroundColor: "#d4d4d4" }}>
                                 <td className="styletablecell">{x+1}</td>
-                                <td className="styletablecell">{i?.name}</td>
-                                <td className="styletablecell">{i?.alamat}</td>
-                                <td className="styletablecell">{i?.phone}</td>
+                                <td className="styletablecell">{i?.showroomName}</td>
+                                <td className="styletablecell">{i?.showroomAddress}</td>
+                                <td className="styletablecell">{i?.showroomPhone}</td>
                                 <td>
-                                    <button>update</button>
-                                    <button>delete</button>
+                                    <button onClick={() => goedit(i?.showroomId)}>update</button>
+                                    <button onClick={() => godelete(i?.showroomId)}>delete</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -148,24 +133,6 @@ function TableShow() {
             </table>
         </div>
     )
-}
-
-class ModelNewShowroom {
-    id = ""
-    name = ""
-    alamat = ""
-    phone = ""
-    constructor({
-        id = "",
-        name = "",
-        alamat = "",
-        phone = ""
-    }) {
-        this.id = id
-        this.name = name
-        this.alamat = alamat
-        this.phone = phone
-    }
 }
 
 export default Index;

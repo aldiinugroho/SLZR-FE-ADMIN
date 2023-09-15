@@ -89,6 +89,29 @@ async  function GET({
     }
 }
 
+async  function DELETE({
+    headers = {},
+    route = "",
+    path = ""
+}) {
+    try {
+        let requestOptions = {
+            method: 'DELETE',
+            headers: {
+                ...baseHeaders,
+                ...headers,
+                Authorization: new LocalStorage().getToken() === null ? "" : `Bearer ${new LocalStorage().getToken()}`
+            }
+        };
+        let urlReq = `${MAINURL}${route}${path}`
+        const rawResponse = await fetch(urlReq, requestOptions);
+        const parsedResponse = await responseParser(rawResponse)
+        return parsedResponse
+    } catch (error) {
+        return await responseParser(null,error)
+    }
+}
+
 async  function POST({
     body = {},
     headers = {},
@@ -117,5 +140,6 @@ async  function POST({
 
 export {
     GET,
-    POST
+    POST,
+    DELETE
 }

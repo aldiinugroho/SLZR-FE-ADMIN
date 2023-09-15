@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    Customalert,
     Custombody,
     Custombutton,
     Customheader,
@@ -9,6 +10,8 @@ import {
 } from "../../../../../../components";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate, useParams } from 'react-router-dom';
+import { requestShowroom } from '../../../../../../request';
 
 const submitformvalidation = Yup.object().shape({
     nama: Yup.string()
@@ -34,6 +37,41 @@ function Index() {
 }
 
 function SubmitForm() {
+    let { type } = useParams();
+    const customalert = Customalert.useCustomAlert()
+    const navigate = useNavigate()
+
+    async function submitNew(params) {
+        try {
+            const result = await requestShowroom.create({
+                showroomName: params?.nama,
+                showroomAddress: params?.alamat,
+                showroomPhone: params?.phone
+            })
+            if (result === true) {
+                navigate("/register/new-showroom")
+            }
+        } catch (error) {
+            customalert(error)
+        }
+    }
+
+    async function submitUpdate(params) {
+        try {
+            
+        } catch (error) {
+            customalert(error?.rawmessage)
+        }
+    }
+
+    function submit(data) {
+        if (type === "create") {
+            submitNew(data)
+        } else {
+            submitUpdate(data)
+        }
+    }
+
     return(
         <div style={{
             padding: "10px",
@@ -51,19 +89,19 @@ function SubmitForm() {
                 }}
                 validationSchema={submitformvalidation}
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log("values",values)
+                    submit(values)
                 }}
             >
                 {({
-                      values,
-                      errors,
-                      touched,
-                      handleChange,
-                      handleBlur,
-                      handleSubmit,
-                      isSubmitting,
-                      /* and other goodies */
-                  }) => (
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    /* and other goodies */
+                }) => (
                     <React.Fragment>
                         <Customtextfield
                             placeholder={"Nama"}
@@ -94,7 +132,7 @@ function SubmitForm() {
                         <div style={{ padding: 5 }}></div>
                         <Custombutton
                             onClick={handleSubmit}
-                            title={"tambah"}
+                            title={type === "create" ? "Tambah" : "Ubah"}
                         />
                     </React.Fragment>
                 )}

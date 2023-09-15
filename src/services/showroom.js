@@ -2,7 +2,22 @@ import * as api from "./api";
 
 export async function getShowroom(path = "") {
     return await api.GET({
-        route: "users",
-        path
+        route: "showroom",
+        path: path
+    })
+}
+
+export async function postShowroom(path = "",body = {}) {
+    return await api.POST({
+        route: "showroom",
+        path: path,
+        body: body
+    })
+}
+
+export async function deleteShowroom(path = "") {
+    return await api.DELETE({
+        route: "showroom",
+        path: path
     })
 }
