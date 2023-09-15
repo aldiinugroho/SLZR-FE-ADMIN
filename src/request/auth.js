@@ -1,3 +1,4 @@
+import { LocalStorage } from "../configs/localstorage";
 import {postAuth} from "../services/auth";
 
 export async function login({
@@ -14,6 +15,10 @@ export async function login({
       body: reqData
     })
     if (result.message !== "ok") throw result
+    // set storage token
+    const resData = result?.data?.data?.token
+    new LocalStorage().setToken(resData)
+    // end
     return true
   } catch (e) {
     throw e

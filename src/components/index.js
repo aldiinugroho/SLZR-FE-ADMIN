@@ -6,6 +6,7 @@ import Customtextareafield from "./customtextareafield";
 import Custombutton from "./custombutton";
 import Customdropdown from "./customdropdown";
 import * as Customalert from "./customalert";
+import Customloginchecker from "./customloginchecker";
 
 export {
     Custombody,
@@ -15,5 +16,6 @@ export {
     Customtextareafield,
     Custombutton,
     Customdropdown,
-    Customalert
+    Customalert,
+    Customloginchecker
 }

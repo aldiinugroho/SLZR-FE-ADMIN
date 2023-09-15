@@ -5,6 +5,7 @@ import * as Pages from "./pages"
 import {Newcar, Newshowroom} from "./pages/register/childs";
 import {Newshowroomformsubmit} from "./pages/register/childs/newshowroom/childs";
 import {Newcarformsubmit} from "./pages/register/childs/newcar/childs";
+import { Customloginchecker } from "./components";
 
 class ChildRouting {
     name = ''
@@ -63,33 +64,45 @@ export  const  Routing = [
     new ParentRouting({
         name: "Home",
         path: "/home",
-        element: <Pages.Home />
+        element: <Customloginchecker>
+            <Pages.Home />
+        </Customloginchecker>
     }),
     new ParentRouting({
         name: "Register",
         path: "/register",
-        element: <Newshowroom />,
+        element: <Customloginchecker>
+            <Newshowroom />
+        </Customloginchecker>,
         childs: [
             new ChildRouting({
                 name: "Register Showroom",
                 path: "/new-showroom",
-                element: <Newshowroom />
+                element: <Customloginchecker>
+                    <Newshowroom />
+                </Customloginchecker>
             }),
             new ChildRouting({
                 name: "Register Form Showroom",
                 path: "/new-showroom/formsubmit",
-                element: <Newshowroomformsubmit />,
+                element: <Customloginchecker>
+                    <Newshowroomformsubmit />
+                </Customloginchecker>,
                 showSideBar: false
             }),
             new ChildRouting({
                 name: "Register Car",
                 path: "/new-car",
-                element: <Newcar />
+                element: <Customloginchecker>
+                    <Newcar />
+                </Customloginchecker>
             }),
             new ChildRouting({
                 name: "Register Form Car",
                 path: "/new-car/formsubmit",
-                element: <Newcarformsubmit />,
+                element: <Customloginchecker>
+                    <Newcarformsubmit />
+                </Customloginchecker>,
                 showSideBar: false
             })
         ]

@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { requestAuth } from '../../request';
 import { useNavigate } from 'react-router-dom';
+import { LocalStorage } from '../../configs/localstorage';
 
 function Index() {
     return(
@@ -27,6 +28,7 @@ const submitformvalidation = Yup.object().shape({
 function Bodyformlogin() {
     const navigate = useNavigate()
     const customalert = Customalert.useCustomAlert()
+    const [loadingstate,setloadingstate] = React.useState(true)
 
     async function postLogin({
         email = '',
@@ -45,14 +47,22 @@ function Bodyformlogin() {
         }
     }
 
-    // React.useEffect(() => {
-    //     customalert("inicustomalert")
-    //     customalert("hai")
-    //     customalert("haii")
-    // },[])
+    React.useEffect(() => {
+        checkloginstate()
+    },[])
+
+    function checkloginstate() {
+        const result = new LocalStorage().getToken()
+        if (result === null || result === undefined) {
+            setloadingstate(false)
+        } else {
+            navigate("/home")
+            setloadingstate(false)
+        }
+    }
 
     return(
-        <Formik
+        !loadingstate && <Formik
             initialValues={{
                 email: "",
                 password: ""
