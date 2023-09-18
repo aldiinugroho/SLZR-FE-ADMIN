@@ -9,6 +9,8 @@ import {
 } from "../../../../../../components";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import Customshowroomdropdown from './customshowroomdropdown';
+import Customcarbranddropdown from './customcarbranddropdown';
 
 const submitformvalidation = Yup.object().shape({
     carShowroom: Yup.string()
@@ -47,60 +49,34 @@ function SubmitForm() {
                     carDesc: "",
                     carTransmission: ""
                 }}
-                validationSchema={submitformvalidation}
-                onSubmit={(values, { setSubmitting }) => {
+                // validationSchema={submitformvalidation}
+                onSubmit={(values) => {
                     console.log("values",values)
                 }}
             >
                 {({
-                      values,
-                      errors,
-                      touched,
-                      handleChange,
-                      handleBlur,
-                      handleSubmit,
-                      isSubmitting,
-                      /* and other goodies */
-                  }) => (
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    /* and other goodies */
+                }) => (
                     <React.Fragment>
-                        <Customdropdown
+                        <Customshowroomdropdown
                             onBlur={handleBlur("carShowroom")}
                             onChange={handleChange("carShowroom")}
                             touched={touched.carShowroom}
                             errorMessage={errors.carShowroom}
-                            placeholder={"Pilih Showroom"}
-                            data={[
-                                {
-                                    "id": "main",
-                                    "name": "Pribadi"
-                                },
-                                {
-                                    "id": "123",
-                                    "name": "Toyota"
-                                },
-                                {
-                                    "id": "123",
-                                    "name": "Subaru"
-                                }
-                            ]}
                         />
                         <div style={{ padding: 5 }}></div>
-                        <Customdropdown
+                        <Customcarbranddropdown
                             onBlur={handleBlur("carBrand")}
                             onChange={handleChange("carBrand")}
                             touched={touched.carBrand}
                             errorMessage={errors.carBrand}
-                            placeholder={"Pilih Brand"}
-                            data={[
-                                {
-                                    "id": "123",
-                                    "name": "Toyota"
-                                },
-                                {
-                                    "id": "123",
-                                    "name": "Subaru"
-                                }
-                            ]}
                         />
                         <div style={{ padding: 5 }}></div>
                         <Customtextfield

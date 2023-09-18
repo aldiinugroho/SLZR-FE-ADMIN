@@ -16,7 +16,7 @@ function Index({
 
     useEffect(() => {
         setupdata()
-    }, []);
+    }, [data]);
 
     function setupdata() {
         setdatadd(data)
