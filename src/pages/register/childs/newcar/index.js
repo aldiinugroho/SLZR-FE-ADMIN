@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {Custombody, Customheader, Sidebar} from "../../../../components";
+import {Customalert, Custombody, Customheader, Sidebar} from "../../../../components";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {requestShowroom} from "../../../../request";
+import {requestCar, requestShowroom} from "../../../../request";
+import { storeListCar } from './state';
+import { DateFormatter } from '../../../../utils';
 
 function Index() {
 
@@ -49,29 +51,31 @@ function FormBody() {
 }
 
 function TableShow() {
-    const data = [
-        new ModelNewCar({
-            id: "123",
-            carName: "Toyota calya",
-            carPlate: "B 1234 BCA",
-            carTax: "2023",
-            carTransmission: "matic"
-        }),
-        new ModelNewCar({
-            id: "123",
-            carName: "Toyota calya",
-            carPlate: "B 1234 BCA",
-            carTax: "2023",
-            carTransmission: "matic"
-        }),
-        new ModelNewCar({
-            id: "123",
-            carName: "Toyota calya",
-            carPlate: "B 1234 BCA",
-            carTax: "2023",
-            carTransmission: "matic"
-        })
-    ]
+    const store = storeListCar((state) => state)
+    const alermsg = Customalert.useCustomAlert()
+    // const data = [
+    //     new ModelNewCar({
+    //         id: "123",
+    //         carName: "Toyota calya",
+    //         carPlate: "B 1234 BCA",
+    //         carTax: "2023",
+    //         carTransmission: "matic"
+    //     }),
+    //     new ModelNewCar({
+    //         id: "123",
+    //         carName: "Toyota calya",
+    //         carPlate: "B 1234 BCA",
+    //         carTax: "2023",
+    //         carTransmission: "matic"
+    //     }),
+    //     new ModelNewCar({
+    //         id: "123",
+    //         carName: "Toyota calya",
+    //         carPlate: "B 1234 BCA",
+    //         carTax: "2023",
+    //         carTransmission: "matic"
+    //     })
+    // ]
 
     useEffect(() => {
         getlistdata()
@@ -80,8 +84,9 @@ function TableShow() {
 
     async function getlistdata() {
         try {
-            await requestShowroom.getList()
+            await requestCar.getList()
         } catch (e) {
+            alermsg(e)
         }
     }
 
@@ -97,12 +102,13 @@ function TableShow() {
                     <th className="styletablecell">No</th>
                     <th className="styletablecell">Name</th>
                     <th className="styletablecell">Plat No</th>
+                    <th className="styletablecell">Tahun</th>
                     <th className="styletablecell">Pajak</th>
                     <th className="styletablecell">Transmisi</th>
                     <th className="styletablecell">Action</th>
                 </tr>
                 </thead>
-                {data?.map((i,x) => {
+                {store.data?.map((i,x) => {
                     if (x % 2 === 0) {
                         return (
                             <tbody key={x}>
@@ -110,7 +116,8 @@ function TableShow() {
                                 <td className="styletablecell">{x+1}</td>
                                 <td className="styletablecell">{i?.carName}</td>
                                 <td className="styletablecell">{i?.carPlate}</td>
-                                <td className="styletablecell">{i?.carTax}</td>
+                                <td className="styletablecell">{i?.carYear}</td>
+                                <td className="styletablecell">{new DateFormatter().onlyMonthXYear(i?.carTax)}</td>
                                 <td className="styletablecell">{i?.carTransmission}</td>
                                 <td>
                                     <button>update</button>
@@ -126,7 +133,8 @@ function TableShow() {
                                 <td className="styletablecell">{x+1}</td>
                                 <td className="styletablecell">{i?.carName}</td>
                                 <td className="styletablecell">{i?.carPlate}</td>
-                                <td className="styletablecell">{i?.carTax}</td>
+                                <td className="styletablecell">{i?.carYear}</td>
+                                <td className="styletablecell">{new DateFormatter().onlyMonthXYear(i?.carTax)}</td>
                                 <td className="styletablecell">{i?.carTransmission}</td>
                                 <td>
                                     <button>update</button>

@@ -1,15 +1,17 @@
 import * as api from "./api";
 
+const ROUTE = "showroom"
+
 export async function getShowroom(path = "") {
     return await api.GET({
-        route: "showroom",
+        route: ROUTE,
         path: path
     })
 }
 
 export async function postShowroom(path = "",body = {}) {
     return await api.POST({
-        route: "showroom",
+        route: ROUTE,
         path: path,
         body: body
     })
@@ -17,7 +19,7 @@ export async function postShowroom(path = "",body = {}) {
 
 export async function patchShowroom(path = "",body = {}) {
     return await api.PATCH({
-        route: "showroom",
+        route: ROUTE,
         path: path,
         body: body
     })
@@ -25,7 +27,7 @@ export async function patchShowroom(path = "",body = {}) {
 
 export async function deleteShowroom(path = "") {
     return await api.DELETE({
-        route: "showroom",
+        route: ROUTE,
         path: path
     })
 }
