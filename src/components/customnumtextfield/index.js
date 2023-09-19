@@ -47,7 +47,9 @@ function Index({
                         onFocus={onFocus}
                         onBlur={onBlur}
                         style={{
+                            width: "100%",
                             flex: 1,
+                            // backgroundColor: "yellow",
                             border: "none",
                             outline: "none",
                             fontSize: "15px"

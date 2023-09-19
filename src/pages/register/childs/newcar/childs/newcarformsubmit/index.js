@@ -17,6 +17,7 @@ import Customtransmissiondropdown from './customtransmissiondropdown';
 import Customfueldropdown from './customfueldropdown';
 import Customcaryeardropdown from './customcaryeardropdown';
 import Custom5image from './custom5image';
+import Customcarotherprice from './customcarotherprice';
 
 const submitformvalidation = Yup.object().shape({
     carShowroom: Yup.string()
@@ -195,6 +196,10 @@ function SubmitForm() {
                         <Custom5image />
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
+                        <Customcarotherprice />
+                        <div style={{ padding: 5 }}></div>
+                        <div className="spacingblack"></div>
+                        <div style={{ padding: 20 }}></div>
                         <Custombutton
                             onClick={handleSubmit}
                             title={"tambah"}
