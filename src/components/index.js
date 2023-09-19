@@ -10,6 +10,7 @@ import Customloginchecker from "./customloginchecker";
 import Customdatefield from "./customdatefield";
 import Customnumtextfield from "./customnumtextfield";
 import Customfieldimage from "./customfieldimage";
+import Customuploadimage from "./customuploadimage";
 
 export {
     Custombody,
@@ -23,5 +24,6 @@ export {
     Customloginchecker,
     Customdatefield,
     Customnumtextfield,
-    Customfieldimage
+    Customfieldimage,
+    Customuploadimage
 }
