@@ -9,6 +9,7 @@ import * as Customalert from "./customalert";
 import Customloginchecker from "./customloginchecker";
 import Customdatefield from "./customdatefield";
 import Customnumtextfield from "./customnumtextfield";
+import Customfieldimage from "./customfieldimage";
 
 export {
     Custombody,
@@ -21,5 +22,6 @@ export {
     Customalert,
     Customloginchecker,
     Customdatefield,
-    Customnumtextfield
+    Customnumtextfield,
+    Customfieldimage
 }

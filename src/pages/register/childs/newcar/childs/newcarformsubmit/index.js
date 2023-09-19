@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
     Custombody,
     Custombutton, Customdatefield, Customdropdown,
+    Customfieldimage,
     Customheader,
     Customnumtextfield,
     Customtextareafield,
@@ -186,6 +187,17 @@ function SubmitForm() {
                             onBlur={handleBlur("carSellPrice")}
                             touched={touched.carSellPrice}
                             errorMessage={errors.carSellPrice}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <div className="spacingblack"></div>
+                        <div style={{ padding: 5 }}></div>
+                        <Customfieldimage 
+                            placeholder={"Harga Jual"}
+                            // value={values.carSellPrice}
+                            // onChange={handleChange("carSellPrice")}
+                            // onBlur={handleBlur("carSellPrice")}
+                            // touched={touched.carSellPrice}
+                            // errorMessage={errors.carSellPrice}
                         />
                         <div style={{ padding: 5 }}></div>
                         <Custombutton
