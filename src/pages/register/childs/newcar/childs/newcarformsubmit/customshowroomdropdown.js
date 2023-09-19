@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Customalert, Customdropdown } from "../../../../../../components";
-import { requestCarBrand } from "../../../../../../request";
+import { requestCarBrand, requestShowroom } from "../../../../../../request";
 import { storeDDShowroom } from "./state";
 
 function Customshowroomdropdown({
@@ -19,7 +19,7 @@ function Customshowroomdropdown({
 
   async function prepareData() {
     try {
-      await requestCarBrand.list()
+      await requestShowroom.geDDList()
     } catch (error) {
       customalert(error)
     }

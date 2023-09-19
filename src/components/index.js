@@ -7,6 +7,8 @@ import Custombutton from "./custombutton";
 import Customdropdown from "./customdropdown";
 import * as Customalert from "./customalert";
 import Customloginchecker from "./customloginchecker";
+import Customdatefield from "./customdatefield";
+import Customnumtextfield from "./customnumtextfield";
 
 export {
     Custombody,
@@ -17,5 +19,7 @@ export {
     Custombutton,
     Customdropdown,
     Customalert,
-    Customloginchecker
+    Customloginchecker,
+    Customdatefield,
+    Customnumtextfield
 }

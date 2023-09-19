@@ -53,29 +53,6 @@ function FormBody() {
 function TableShow() {
     const store = storeListCar((state) => state)
     const alermsg = Customalert.useCustomAlert()
-    // const data = [
-    //     new ModelNewCar({
-    //         id: "123",
-    //         carName: "Toyota calya",
-    //         carPlate: "B 1234 BCA",
-    //         carTax: "2023",
-    //         carTransmission: "matic"
-    //     }),
-    //     new ModelNewCar({
-    //         id: "123",
-    //         carName: "Toyota calya",
-    //         carPlate: "B 1234 BCA",
-    //         carTax: "2023",
-    //         carTransmission: "matic"
-    //     }),
-    //     new ModelNewCar({
-    //         id: "123",
-    //         carName: "Toyota calya",
-    //         carPlate: "B 1234 BCA",
-    //         carTax: "2023",
-    //         carTransmission: "matic"
-    //     })
-    // ]
 
     useEffect(() => {
         getlistdata()

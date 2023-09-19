@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {
     Custombody,
-    Custombutton, Customdropdown,
+    Custombutton, Customdatefield, Customdropdown,
     Customheader,
+    Customnumtextfield,
     Customtextareafield,
     Customtextfield,
     Sidebar
@@ -11,6 +12,9 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Customshowroomdropdown from './customshowroomdropdown';
 import Customcarbranddropdown from './customcarbranddropdown';
+import Customtransmissiondropdown from './customtransmissiondropdown';
+import Customfueldropdown from './customfueldropdown';
+import Customcaryeardropdown from './customcaryeardropdown';
 
 const submitformvalidation = Yup.object().shape({
     carShowroom: Yup.string()
@@ -47,7 +51,12 @@ function SubmitForm() {
                     carBrand: "",
                     carPlate: "",
                     carDesc: "",
-                    carTransmission: ""
+                    carTransmission: "",
+                    carFuel: "",
+                    carYear: "",
+                    carTax: "",
+                    carSellPrice: "",
+                    carBuyPrice: ""
                 }}
                 // validationSchema={submitformvalidation}
                 onSubmit={(values) => {
@@ -106,13 +115,77 @@ function SubmitForm() {
                             errorMessage={errors.carDesc}
                         />
                         <div style={{ padding: 5 }}></div>
-                        <Customtextfield
-                            placeholder={"Transmisi"}
-                            value={values.carTransmission}
-                            onChange={handleChange("carTransmission")}
+                        <Customtransmissiondropdown
                             onBlur={handleBlur("carTransmission")}
+                            onChange={handleChange("carTransmission")}
                             touched={touched.carTransmission}
                             errorMessage={errors.carTransmission}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <Customfueldropdown
+                            onBlur={handleBlur("carFuel")}
+                            onChange={handleChange("carFuel")}
+                            touched={touched.carFuel}
+                            errorMessage={errors.carFuel}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <Customcaryeardropdown
+                            onBlur={handleBlur("carYear")}
+                            onChange={handleChange("carYear")}
+                            touched={touched.carYear}
+                            errorMessage={errors.carYear}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <Customdatefield
+                            type={"month"}
+                            placeholder={"Pilih Bulan/Tahun pajak"}
+                            value={values.carTax}
+                            onChange={handleChange("carTax")}
+                            onBlur={handleBlur("carTax")}
+                            touched={touched.carTax}
+                            errorMessage={errors.carTax}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center"
+                        }}>
+                            <input 
+                            onChange={e => {
+                                console.log("BPKB is checked",e.target.checked);
+                            }}
+                            type="checkbox" name="BPKB" value="BPKB" />
+                            <label style={{ fontSize: 15 }}>BPKB</label>
+                        </div>
+                        <div style={{ padding: 5 }}></div>
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center"
+                        }}>
+                            <input 
+                            onChange={e => {
+                                console.log("STNK is checked",e.target.checked);
+                            }}
+                            type="checkbox" name="STNK" value="STNK" />
+                            <label style={{ fontSize: 15 }}>STNK</label>
+                        </div>
+                        <div style={{ padding: 5 }}></div>
+                        <Customnumtextfield
+                            placeholder={"Harga Beli"}
+                            value={values.carBuyPrice}
+                            onChange={handleChange("carBuyPrice")}
+                            onBlur={handleBlur("carBuyPrice")}
+                            touched={touched.carBuyPrice}
+                            errorMessage={errors.carBuyPrice}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <Customnumtextfield
+                            placeholder={"Harga Jual"}
+                            value={values.carSellPrice}
+                            onChange={handleChange("carSellPrice")}
+                            onBlur={handleBlur("carSellPrice")}
+                            touched={touched.carSellPrice}
+                            errorMessage={errors.carSellPrice}
                         />
                         <div style={{ padding: 5 }}></div>
                         <Custombutton

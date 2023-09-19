@@ -46,7 +46,7 @@ function AlertComponent({data = []}) {
       justifyContent: "center",
       alignItems: "center",
       width: "100%",
-      padding: 5,
+      // padding: 5,
       // backgroundColor:"pink"
     }}>
       {data.map((i,x) => (
