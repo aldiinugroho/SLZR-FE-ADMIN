@@ -40,9 +40,14 @@ function Index({
                         type={type}
                         value={value}
                         onChange={(e) => {
-                            let rawval = e.target.value.replace(/\./g, "");
-                            let newval = formatNumber(rawval)
-                            onChange(newval)
+                            // console.log(e.target.value.length);
+                            if (e.target.value.length === 0) {
+                                onChange("")
+                            } else if (e.target.value.match(/^[0-9.]+$/g)) {
+                                let rawval = e.target.value.replace(/\./g, "");
+                                let newval = formatNumber(rawval)
+                                onChange(newval)
+                            }
                         }}
                         onFocus={onFocus}
                         onBlur={onBlur}
