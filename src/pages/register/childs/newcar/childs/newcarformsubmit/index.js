@@ -42,7 +42,8 @@ function SubmitForm() {
     function submitdata(params) {
         const data = {
             ...params,
-            carImage: JSON.parse(params?.carImage)
+            carImage: JSON.parse(params?.carImage),
+            carOtherPrice: JSON.parse(params?.carOtherPrice)
         }
         console.log(data);
     }

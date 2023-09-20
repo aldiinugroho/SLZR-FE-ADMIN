@@ -6,11 +6,12 @@ import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 
 function Customcarotherprice({
-  data = []
+  data = [],
+  onChangeValue = () => {}
 }) {
   const [datavalue,setdatavalue] = React.useState(data)
 
-  function onChangeValue(params = new ModelCustomCarOtherPrice({})) {
+  function onChangeValueComp(params = new ModelCustomCarOtherPrice({})) {
     setdatavalue(prevItems => {
       return [...prevItems, params];
     });
@@ -22,6 +23,10 @@ function Customcarotherprice({
       return filtered
     });
   }
+
+  React.useEffect(() => {
+    onChangeValue(datavalue)
+  },[datavalue])
 
   return(
     <div>
@@ -59,7 +64,7 @@ function Customcarotherprice({
         </React.Fragment>
       ))}
       <Formcarotherpricegenerator 
-        onChangeValue={onChangeValue}
+        onChangeValue={onChangeValueComp}
       />
     </div>
   )
