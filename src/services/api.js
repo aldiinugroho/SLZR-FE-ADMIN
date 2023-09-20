@@ -117,13 +117,15 @@ async  function POST({
     headers = {},
     route = "",
     path = "",
-    withBodyStringify = true
+    withBodyStringify = true,
+    withBaseHeader = true
 }) {
     try {
+        let baseHeaderCustom = withBaseHeader ? baseHeaders : {}
         let requestOptions = {
             method: 'POST',
             headers: {
-                ...baseHeaders,
+                ...baseHeaderCustom,
                 ...headers,
                 Authorization: new LocalStorage().getToken() === null ? "" : `Bearer ${new LocalStorage().getToken()}`
             },

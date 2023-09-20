@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Customalert } from '..';
+import { requestUpload } from '../../request';
 
 function Index({
     onSuccessUpload = () => {},
@@ -10,25 +11,27 @@ function Index({
 
     function handleFileInputChange(event) {
         const selectedFile = event.target.files[0];
-        const fileName = selectedFile.name;
-        const fakePath = event.target.value; // This will contain the "fakepath"
-        console.log('File Name:', fileName);
-        console.log('selectedFile:', selectedFile);
-        console.log('Fake Path:', fakePath);
-        submitImage()
+        // const fileName = selectedFile.name
+        // const fileType = selectedFile.type;
+        // const fakePath = event.target.value; // This will contain the "fakepath"
+        // const datatosubmit = {
+        //     originalname: fileName,
+        //     mimetype: fileType,
+        //     buffer: selectedFile
+        // }
+        submitImage(selectedFile)
     }
 
     function dataflow(params = "") {
         onSuccessUpload(params)
     }
 
-    function submitImage() {
+    async function submitImage(datatosubmit) {
         try {
             setloadingsubmit(true)
-            setTimeout(() => {
-                setloadingsubmit(false)
-                dataflow("THIS IS GONNA BE IMG URL")
-            }, 2000);
+            const result = await requestUpload.create(datatosubmit)
+            dataflow(result)
+            setloadingsubmit(false)
         } catch (error) {
             setloadingsubmit(false)
             alertmsg(error)

@@ -6,7 +6,12 @@ function Custom5image({
   onChangeValue = () => {},
   value = []
 }) {
-  const [imagedata,setimagedata] = React.useState(value)
+  const [imagedata,setimagedata] = React.useState([
+    // {
+    //   uploadId: "123",
+    //   uri: "https://t4.ftcdn.net/jpg/04/02/26/11/360_F_402261107_D204pzlyN46dj5rBIgdXThFL74YQUWeY.jpg"
+    // }
+  ])
   // make only image uploader 
   // after that stack it into array
 
@@ -22,7 +27,6 @@ function Custom5image({
   }
 
   function onclickdelete(params) {
-    console.log(params);
     setimagedata(prevItems => {
       const filtered = prevItems.filter((i) => i.uploadId !== params.uploadId)
       return filtered
@@ -44,7 +48,7 @@ function Custom5image({
             <div style={{
               width: "8rem",
               height: "8rem",
-              backgroundColor: "pink",
+              backgroundColor: "gray",
               position: "relative",
               overflow: "hidden",
               marginBottom: 10
@@ -60,6 +64,15 @@ function Custom5image({
                 borderRadius: "10rem",
                 cursor: "default"
               }}></div>
+              <img 
+                src={i?.uri} 
+                alt={i?.uri} 
+                width="100%" 
+                height="100%"
+                style={{
+                  objectFit: "cover"
+                }}
+              ></img>
             </div>
             <div style={{ padding: 5 }}></div>
           </React.Fragment>

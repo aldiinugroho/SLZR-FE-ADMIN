@@ -38,6 +38,15 @@ function Index() {
 }
 
 function SubmitForm() {
+
+    function submitdata(params) {
+        const data = {
+            ...params,
+            carImage: JSON.parse(params?.carImage)
+        }
+        console.log(data);
+    }
+
     return(
         <div style={{
             padding: "10px",
@@ -59,12 +68,12 @@ function SubmitForm() {
                     carYear: "",
                     carTax: "",
                     carSellPrice: "",
-                    carBuyPrice: ""
+                    carBuyPrice: "",
+                    carImage: "",
+                    carOtherPrice: ""
                 }}
                 // validationSchema={submitformvalidation}
-                onSubmit={(values) => {
-                    console.log("values",values)
-                }}
+                onSubmit={(values) => submitdata(values)}
             >
                 {({
                     values,
@@ -74,6 +83,7 @@ function SubmitForm() {
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
+                    setFieldValue
                     /* and other goodies */
                 }) => (
                     <React.Fragment>
@@ -193,10 +203,18 @@ function SubmitForm() {
                         <div style={{ padding: 5 }}></div>
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
-                        <Custom5image />
+                        <Custom5image 
+                            onChangeValue={(value) => {
+                                setFieldValue("carImage",JSON.stringify(value))
+                            }}
+                        />
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
-                        <Customcarotherprice />
+                        <Customcarotherprice 
+                            onChangeValue={(value) => {
+                                setFieldValue("carOtherPrice",JSON.stringify(value))
+                            }}
+                        />
                         <div style={{ padding: 5 }}></div>
                         <div className="spacingblack"></div>
                         <div style={{ padding: 20 }}></div>
