@@ -1,5 +1,5 @@
 import { ModelCar, storeListCar } from "../pages/register/childs/newcar/state";
-import { getCar, postCar } from "../services/car";
+import { deleteCar, getCar, postCar } from "../services/car";
 // import { ModelShowroomForm, storeShowroomForm } from "../pages/register/childs/newshowroom/childs/newshowroomformsubmit/state";
 // import { ModelShowroom, storeListShowroom } from "../pages/register/childs/newshowroom/state";
 // import {deleteShowroom, getShowroom, patchShowroom, postShowroom} from "../services/showroom";
@@ -56,11 +56,23 @@ export async function create(params = {}) {
     console.log(reqData);
     const result = await postCar("/create",reqData)
     if (result.message !== "ok") throw result
-    console.log(result);
-    // const parsedData = result.data?.data.map((i) => new ModelCar(i))
-    // storeListCar.getState().setdata(parsedData)
+    const parsedData = result.data?.data.map((i) => new ModelCar(i))
+    storeListCar.getState().setdata(parsedData)
   } catch (e) {
-    // storeListCar.getState().reset()
+    storeListCar.getState().reset()
+    throw e?.rawmessage
+  }
+}
+
+export async function reqDelete(carId = "") {
+  try {
+    storeListCar.getState().setloading()
+    const result = await deleteCar(`/${carId}`)
+    if (result.message !== "ok") throw result
+    const parsedData = result.data?.data.map((i) => new ModelCar(i))
+    storeListCar.getState().setdata(parsedData)
+  } catch (e) {
+    storeListCar.getState().reset()
     throw e?.rawmessage
   }
 }

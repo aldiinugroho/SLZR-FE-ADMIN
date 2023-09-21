@@ -67,6 +67,14 @@ function TableShow() {
         }
     }
 
+    async function deleteData(params = "") {
+        try {
+            await requestCar.reqDelete(params)
+        } catch (error) {
+            alermsg(error)
+        }
+    }
+
     return(
         <div style={{
             display: "inline-block",
@@ -98,7 +106,7 @@ function TableShow() {
                                 <td className="styletablecell">{i?.carTransmission}</td>
                                 <td>
                                     <button>update</button>
-                                    <button>delete</button>
+                                    <button onClick={() => deleteData(i?.carId)}>delete</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -115,7 +123,7 @@ function TableShow() {
                                 <td className="styletablecell">{i?.carTransmission}</td>
                                 <td>
                                     <button>update</button>
-                                    <button>delete</button>
+                                    <button onClick={() => deleteData(i?.carId)}>delete</button>
                                 </td>
                             </tr>
                             </tbody>
