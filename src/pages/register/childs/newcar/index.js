@@ -75,6 +75,10 @@ function TableShow() {
         }
     }
 
+    async function updateData(params = "") {
+        console.log(params);
+    }
+
     return(
         <div style={{
             display: "inline-block",
@@ -105,7 +109,7 @@ function TableShow() {
                                 <td className="styletablecell">{new DateFormatter().onlyMonthXYear(i?.carTax)}</td>
                                 <td className="styletablecell">{i?.carTransmission}</td>
                                 <td>
-                                    <button>update</button>
+                                    <button onClick={() => updateData(i?.carId)}>update</button>
                                     <button onClick={() => deleteData(i?.carId)}>delete</button>
                                 </td>
                             </tr>
@@ -122,7 +126,7 @@ function TableShow() {
                                 <td className="styletablecell">{new DateFormatter().onlyMonthXYear(i?.carTax)}</td>
                                 <td className="styletablecell">{i?.carTransmission}</td>
                                 <td>
-                                    <button>update</button>
+                                    <button onClick={() => updateData(i?.carId)}>update</button>
                                     <button onClick={() => deleteData(i?.carId)}>delete</button>
                                 </td>
                             </tr>

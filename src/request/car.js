@@ -19,7 +19,7 @@ export async function getList() {
 
 export async function create(params = {}) {
   try {
-    // storeListCar.getState().setloading()
+    storeListCar.getState().setloading()
     const carBrand = JSON.parse(params.carBrand)
     const carFuel = JSON.parse(params.carFuel)
     const carShowroom = JSON.parse(params.carShowroom)

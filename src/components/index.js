@@ -11,6 +11,7 @@ import Customdatefield from "./customdatefield";
 import Customnumtextfield from "./customnumtextfield";
 import Customfieldimage from "./customfieldimage";
 import Customuploadimage from "./customuploadimage";
+import Customspinner from "./customspinner";
 
 export {
     Custombody,
@@ -25,5 +26,6 @@ export {
     Customdatefield,
     Customnumtextfield,
     Customfieldimage,
-    Customuploadimage
+    Customuploadimage,
+    Customspinner
 }

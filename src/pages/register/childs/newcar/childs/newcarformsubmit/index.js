@@ -6,6 +6,7 @@ import {
     Customfieldimage,
     Customheader,
     Customnumtextfield,
+    Customspinner,
     Customtextareafield,
     Customtextfield,
     Sidebar
@@ -20,6 +21,7 @@ import Customcaryeardropdown from './customcaryeardropdown';
 import Custom5image from './custom5image';
 import Customcarotherprice from './customcarotherprice';
 import { requestCar } from '../../../../../../request';
+import { storeListCar } from '../../state';
 
 const submitformvalidation = Yup.object().shape({
     carShowroom: Yup.string()
@@ -49,8 +51,12 @@ const submitformvalidation = Yup.object().shape({
 });
 
 function Index() {
+    const store = storeListCar((state) => state)
     return(
         <Custombody>
+            {store.loading && (
+                <Customspinner />
+            )}
             <Sidebar>
                 <Customheader />
                 <SubmitForm />
