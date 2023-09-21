@@ -54,9 +54,9 @@ export async function create(params = {}) {
       })
     }
     console.log(reqData);
-    // const result = await postCar("/create",reqData)
-    // if (result.message !== "ok") throw result
-    // console.log(result);
+    const result = await postCar("/create",reqData)
+    if (result.message !== "ok") throw result
+    console.log(result);
     // const parsedData = result.data?.data.map((i) => new ModelCar(i))
     // storeListCar.getState().setdata(parsedData)
   } catch (e) {
