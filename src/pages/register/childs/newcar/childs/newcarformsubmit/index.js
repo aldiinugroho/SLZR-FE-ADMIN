@@ -236,7 +236,6 @@ function SubmitForm() {
                             touched={touched.carImage}
                             errorMessage={errors.carImage}
                             onChangeValue={(value) => {
-                                if (value.length === 0) return
                                 setFieldValue("carImage",value.length === 0 ? "" : JSON.stringify(value))
                             }}
                         />
