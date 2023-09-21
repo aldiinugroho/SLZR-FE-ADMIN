@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    Customalert,
     Custombody,
     Custombutton, Customdatefield, Customdropdown,
     Customfieldimage,
@@ -18,12 +19,33 @@ import Customfueldropdown from './customfueldropdown';
 import Customcaryeardropdown from './customcaryeardropdown';
 import Custom5image from './custom5image';
 import Customcarotherprice from './customcarotherprice';
+import { requestCar } from '../../../../../../request';
 
 const submitformvalidation = Yup.object().shape({
     carShowroom: Yup.string()
         .required('Showroom wajib diisi.'),
     carBrand: Yup.string()
-        .required('Brand wajib diisi.')
+        .required('Brand wajib diisi.'),
+    carName: Yup.string()
+        .required('Nama wajib diisi.'),
+    carPlate: Yup.string()
+        .required('Plat nomor wajib diisi.'),
+    carDesc: Yup.string()
+        .required('Deskripsi wajib diisi.'),
+    carTransmission: Yup.string()
+        .required('Jenis transmisi wajib diisi.'),
+    carFuel: Yup.string()
+        .required('Jenis bahan bakar wajib diisi.'),
+    carTax: Yup.string()
+        .required('Pajak mobil wajib diisi.'),
+    carYear: Yup.string()
+        .required('Tahun mobil wajib diisi.'),
+    carSellPrice: Yup.string()
+        .required('Harga jual mobil wajib diisi.'),
+    carBuyPrice: Yup.string()
+        .required('Harga beli mobil wajib diisi.'),
+    carImage: Yup.string()
+        .required('Gambar mobil wajib diisi minimal 1.'),
 });
 
 function Index() {
@@ -38,14 +60,14 @@ function Index() {
 }
 
 function SubmitForm() {
+    const alermsg = Customalert.useCustomAlert()
 
-    function submitdata(params) {
-        const data = {
-            ...params,
-            carImage: JSON.parse(params?.carImage),
-            carOtherPrice: JSON.parse(params?.carOtherPrice)
+    async function submitdata(params) {
+        try {
+            await requestCar.create(params)
+        } catch (error) {
+            alermsg(error)
         }
-        console.log(data);
     }
 
     return(
@@ -68,12 +90,14 @@ function SubmitForm() {
                     carFuel: "",
                     carYear: "",
                     carTax: "",
+                    carBPKB: false,
+                    carSTNK: false,
                     carSellPrice: "",
                     carBuyPrice: "",
                     carImage: "",
                     carOtherPrice: ""
                 }}
-                // validationSchema={submitformvalidation}
+                validationSchema={submitformvalidation}
                 onSubmit={(values) => submitdata(values)}
             >
                 {({
@@ -167,6 +191,7 @@ function SubmitForm() {
                             <input 
                             onChange={e => {
                                 console.log("BPKB is checked",e.target.checked);
+                                setFieldValue("carBPKB",e.target.checked)
                             }}
                             type="checkbox" name="BPKB" value="BPKB" />
                             <label style={{ fontSize: 15 }}>BPKB</label>
@@ -179,6 +204,7 @@ function SubmitForm() {
                             <input 
                             onChange={e => {
                                 console.log("STNK is checked",e.target.checked);
+                                setFieldValue("carSTNK",e.target.checked)
                             }}
                             type="checkbox" name="STNK" value="STNK" />
                             <label style={{ fontSize: 15 }}>STNK</label>
@@ -204,16 +230,21 @@ function SubmitForm() {
                         <div style={{ padding: 5 }}></div>
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
+                        {/* {console.log({errors,values})} */}
                         <Custom5image 
+                            onBlur={handleBlur("carImage")}
+                            touched={touched.carImage}
+                            errorMessage={errors.carImage}
                             onChangeValue={(value) => {
-                                setFieldValue("carImage",JSON.stringify(value))
+                                if (value.length === 0) return
+                                setFieldValue("carImage",value.length === 0 ? "" : JSON.stringify(value))
                             }}
                         />
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
                         <Customcarotherprice 
                             onChangeValue={(value) => {
-                                setFieldValue("carOtherPrice",JSON.stringify(value))
+                                setFieldValue("carOtherPrice",value.length === 0 ? "" : JSON.stringify(value))
                             }}
                         />
                         <div style={{ padding: 5 }}></div>

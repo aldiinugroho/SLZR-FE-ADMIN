@@ -5,6 +5,9 @@ import { requestUpload } from '../../request';
 function Index({
     onSuccessUpload = () => {},
     width = "40%",
+    makeError = false,
+    onFocus = () => {},
+    onBlur = () => {}
 }) {
     const [loadingsubmit,setloadingsubmit] = React.useState(false)
     const alertmsg = Customalert.useCustomAlert()
@@ -61,10 +64,10 @@ function Index({
                     type={"file"}
                     // value={value}
                     onChange={(event) => handleFileInputChange(event)}
-                    // onFocus={onFocus}
-                    // onBlur={onBlur}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     style={{
-                        borderColor:  "gray",
+                        borderColor: makeError ? "red" : "gray",
                         borderRadius: "5px",
                         borderWidth: "1px",
                         borderStyle: "solid",

@@ -4,8 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 function Custom5image({
   onChangeValue = () => {},
-  value = []
+  value = [],
+  errorMessage = "",
+  onFocus = () => {},
+  onBlur = () => {},
+  touched = false
 }) {
+  const errorStat = touched === true && errorMessage !== ""
   const [imagedata,setimagedata] = React.useState([
     // {
     //   uploadId: "123",
@@ -80,8 +85,17 @@ function Custom5image({
       </div>
       {imagedata.length <= 5 && (
         <Customuploadimage 
+          onBlur={onBlur}
+          onFocus={onFocus}
+          makeError={errorStat}
           onSuccessUpload={onSuccessUpload}
         />
+      )}
+      {errorStat && (
+        <div style={{
+          fontSize: 12,
+          color: "red"
+        }}>{errorMessage}</div>
       )}
       <div style={{ padding: 5 }}></div>
     </React.Fragment>
