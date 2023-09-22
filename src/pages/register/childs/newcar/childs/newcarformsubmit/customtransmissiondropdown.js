@@ -4,6 +4,7 @@ import { requestCarBrand } from "../../../../../../request";
 import { storeDDBrand, storeDDShowroom } from "./state";
 
 function Customtransmissiondropdown({
+  value = "",
   onBlur = () => {},
   onChange = () => {},
   touched = false,
@@ -23,6 +24,7 @@ function Customtransmissiondropdown({
 
   return(
     <Customdropdown
+      value={value}
       onBlur={onBlur}
       onChange={onChange}
       touched={touched}

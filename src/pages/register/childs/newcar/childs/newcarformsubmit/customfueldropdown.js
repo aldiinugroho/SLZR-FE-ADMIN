@@ -4,6 +4,7 @@ import { requestCarBrand } from "../../../../../../request";
 import { storeDDBrand, storeDDShowroom } from "./state";
 
 function Customfueldropdown({
+  value = "",
   onBlur = () => {},
   onChange = () => {},
   touched = false,
@@ -23,6 +24,7 @@ function Customfueldropdown({
 
   return(
     <Customdropdown
+      value={value}
       onBlur={onBlur}
       onChange={onChange}
       touched={touched}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from "react";
 
 function Index({
+    value = "",
     data = [],
     width = "40%",
     onBlur = () => {},
@@ -13,12 +14,19 @@ function Index({
 }) {
     const errorStat = touched === true && errorMessage !== ""
     const [datadd,setdatadd] = useState([])
+    const [valuedata,setvaluedata] = useState("")
+    // const selectRef = React.useRef(null)
 
     useEffect(() => {
         setupdata()
     }, [data]);
 
     function setupdata() {
+        // if (selectRef.current && value === "") {
+        //     selectRef.current.value = 'DEFAULT';
+        // } else if (selectRef.current && value !== "") {
+        //     selectRef.current.value = value
+        // }
         setdatadd(data)
     }
 
@@ -34,7 +42,9 @@ function Index({
             flexDirection: "column"
         }}>
             <select
-            defaultValue={'DEFAULT'}
+            // ref={selectRef}
+            value={value}
+            // defaultValue={"DEFAULT"}
             onChange={(event) => onChangeValue(event)}
             onBlur={onBlur}
             onFocus={onFocus}
@@ -48,7 +58,10 @@ function Index({
                 <React.Fragment>
                     <option value="DEFAULT" disabled={true}>{placeholder}</option>
                     {datadd?.map((i,x) => (
-                        <option key={x} value={JSON.stringify(i)}>{i?.name}</option>
+                        <React.Fragment key={x} >
+                            {/* {console.log({loopedvalue: JSON.stringify(i), valuedata})} */}
+                            <option value={JSON.stringify(i)}>{i?.name}</option>
+                        </React.Fragment>
                     ))}
                 </React.Fragment>
             </select>

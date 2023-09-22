@@ -15,7 +15,7 @@ function Index({
       justifyContent: "center",
       alignItems: "center"
   }}>
-    <div class="loader"></div>
+    <div className="loader"></div>
   </div>
   )
 }

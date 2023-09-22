@@ -4,6 +4,7 @@ import { requestCarBrand, requestShowroom } from "../../../../../../request";
 import { storeDDShowroom } from "./state";
 
 function Customshowroomdropdown({
+  value = "",
   onBlur = () => {},
   onChange = () => {},
   touched = false,
@@ -25,8 +26,13 @@ function Customshowroomdropdown({
     }
   }
 
+  React.useEffect(() => {
+    console.log("storeDDShowroom",store.data);
+  },[store])
+
   return(
     <Customdropdown
+      value={value}
       onBlur={onBlur}
       onChange={onChange}
       touched={touched}

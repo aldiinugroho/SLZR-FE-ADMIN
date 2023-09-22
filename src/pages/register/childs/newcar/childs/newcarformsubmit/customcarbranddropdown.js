@@ -4,6 +4,7 @@ import { requestCarBrand } from "../../../../../../request";
 import { storeDDBrand, storeDDShowroom } from "./state";
 
 function Customcarbranddropdown({
+  value = "",
   onBlur = () => {},
   onChange = () => {},
   touched = false,
@@ -27,6 +28,7 @@ function Customcarbranddropdown({
 
   return(
     <Customdropdown
+      value={value}
       onBlur={onBlur}
       onChange={onChange}
       touched={touched}

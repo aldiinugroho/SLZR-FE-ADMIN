@@ -22,6 +22,10 @@ import Custom5image from './custom5image';
 import Customcarotherprice from './customcarotherprice';
 import { requestCar } from '../../../../../../request';
 import { storeListCar } from '../../state';
+import { useParams } from 'react-router-dom';
+import { storeCarDetail } from './statedetailcar';
+import { formatNumber } from '../../../../../../utils';
+import moment from 'moment/moment';
 
 const submitformvalidation = Yup.object().shape({
     carShowroom: Yup.string()
@@ -46,31 +50,83 @@ const submitformvalidation = Yup.object().shape({
         .required('Harga jual mobil wajib diisi.'),
     carBuyPrice: Yup.string()
         .required('Harga beli mobil wajib diisi.'),
-    carImage: Yup.string()
-        .required('Gambar mobil wajib diisi minimal 1.'),
+    // carImage: Yup.string()
+    //     .required('Gambar mobil wajib diisi minimal 1.'),
 });
 
 function Index() {
+    const {type,carId} = useParams()
     const store = storeListCar((state) => state)
+    const storecardetail = storeCarDetail((state) => state)
+    const alertmsg = Customalert.useCustomAlert()
+
+    React.useEffect(() => {
+        setupdataupdate()
+    },[])
+
+    async function setupdataupdate() {
+        try {
+            if (type === "create") return
+            await requestCar.detail(carId)
+        } catch (error) {
+            alertmsg(error)
+        }
+    }
+
+    React.useEffect(() => {
+        console.log("useEffect",storecardetail.data);
+    },[storecardetail])
+
     return(
         <Custombody>
-            {store.loading && (
+            {store.loading || storecardetail.loading && (
                 <Customspinner />
             )}
             <Sidebar>
                 <Customheader />
-                <SubmitForm />
+                {type === "create" && (<SubmitForm />)}
+                {type === "update" && storecardetail.data !== null && (<SubmitForm 
+                    initValue={{
+                        ...storecardetail.data,
+                        carTax: moment(storecardetail.data.carTax).format("yyyy-MM"),
+                        carShowroom: storecardetail.data.carShowroom.showroomId,
+                        carDesc: storecardetail.data.carDescription,
+                        carBuyPrice: formatNumber(storecardetail.data.carBuyPrice),
+                        carSellPrice: formatNumber(storecardetail.data.carSellPrice),
+                        carImage: JSON.stringify(storecardetail.data.carImage)
+                    }}
+                />)}
             </Sidebar>
         </Custombody>
     )
 }
 
-function SubmitForm() {
+function SubmitForm({
+    initValue = {
+        carName: "",
+        carShowroom: "DEFAULT",
+        carBrand: "DEFAULT",
+        carPlate: "",
+        carDesc: "",
+        carTransmission: "DEFAULT",
+        carFuel: "DEFAULT",
+        carYear: "DEFAULT",
+        carTax: "",
+        carBPKB: false,
+        carSTNK: false,
+        carSellPrice: "",
+        carBuyPrice: "",
+        carImage: "",
+        carOtherPrice: ""
+    }
+}) {
+    const {type} = useParams()
     const alermsg = Customalert.useCustomAlert()
 
     async function submitdata(params) {
         try {
-            await requestCar.create(params)
+            console.log("submitdata",params);
+            // await requestCar.create(params)
         } catch (error) {
             alermsg(error)
         }
@@ -86,23 +142,7 @@ function SubmitForm() {
             <div className="spacingblack"></div>
             <div style={{ padding: 5 }}></div>
             <Formik
-                initialValues={{
-                    carName: "",
-                    carShowroom: "",
-                    carBrand: "",
-                    carPlate: "",
-                    carDesc: "",
-                    carTransmission: "",
-                    carFuel: "",
-                    carYear: "",
-                    carTax: "",
-                    carBPKB: false,
-                    carSTNK: false,
-                    carSellPrice: "",
-                    carBuyPrice: "",
-                    carImage: "",
-                    carOtherPrice: ""
-                }}
+                initialValues={initValue}
                 validationSchema={submitformvalidation}
                 onSubmit={(values) => submitdata(values)}
             >
@@ -119,6 +159,7 @@ function SubmitForm() {
                 }) => (
                     <React.Fragment>
                         <Customshowroomdropdown
+                            value={values.carShowroom}
                             onBlur={handleBlur("carShowroom")}
                             onChange={handleChange("carShowroom")}
                             touched={touched.carShowroom}
@@ -126,6 +167,7 @@ function SubmitForm() {
                         />
                         <div style={{ padding: 5 }}></div>
                         <Customcarbranddropdown
+                            value={values.carBrand}
                             onBlur={handleBlur("carBrand")}
                             onChange={handleChange("carBrand")}
                             touched={touched.carBrand}
@@ -160,6 +202,7 @@ function SubmitForm() {
                         />
                         <div style={{ padding: 5 }}></div>
                         <Customtransmissiondropdown
+                            value={values.carTransmission}
                             onBlur={handleBlur("carTransmission")}
                             onChange={handleChange("carTransmission")}
                             touched={touched.carTransmission}
@@ -167,6 +210,7 @@ function SubmitForm() {
                         />
                         <div style={{ padding: 5 }}></div>
                         <Customfueldropdown
+                            value={values.carFuel}
                             onBlur={handleBlur("carFuel")}
                             onChange={handleChange("carFuel")}
                             touched={touched.carFuel}
@@ -174,6 +218,7 @@ function SubmitForm() {
                         />
                         <div style={{ padding: 5 }}></div>
                         <Customcaryeardropdown
+                            value={values.carYear}
                             onBlur={handleBlur("carYear")}
                             onChange={handleChange("carYear")}
                             touched={touched.carYear}
@@ -195,6 +240,7 @@ function SubmitForm() {
                             alignItems: "center"
                         }}>
                             <input 
+                            checked={values.carBPKB}
                             onChange={e => {
                                 console.log("BPKB is checked",e.target.checked);
                                 setFieldValue("carBPKB",e.target.checked)
@@ -208,6 +254,7 @@ function SubmitForm() {
                             alignItems: "center"
                         }}>
                             <input 
+                            checked={values.carSTNK}
                             onChange={e => {
                                 console.log("STNK is checked",e.target.checked);
                                 setFieldValue("carSTNK",e.target.checked)
@@ -236,8 +283,8 @@ function SubmitForm() {
                         <div style={{ padding: 5 }}></div>
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
-                        {/* {console.log({errors,values})} */}
-                        <Custom5image 
+                        <Custom5image
+                            value={values.carImage}
                             onBlur={handleBlur("carImage")}
                             touched={touched.carImage}
                             errorMessage={errors.carImage}
@@ -257,7 +304,7 @@ function SubmitForm() {
                         <div style={{ padding: 20 }}></div>
                         <Custombutton
                             onClick={handleSubmit}
-                            title={"tambah"}
+                            title={type === "create" ? "Tambah" : "Ubah"}
                         />
                     </React.Fragment>
                 )}

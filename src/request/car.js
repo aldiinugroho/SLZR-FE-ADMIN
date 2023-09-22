@@ -1,3 +1,4 @@
+import { ModelCarDetail, storeCarDetail } from "../pages/register/childs/newcar/childs/newcarformsubmit/statedetailcar";
 import { ModelCar, storeListCar } from "../pages/register/childs/newcar/state";
 import { deleteCar, getCar, postCar } from "../services/car";
 // import { ModelShowroomForm, storeShowroomForm } from "../pages/register/childs/newshowroom/childs/newshowroomformsubmit/state";
@@ -73,6 +74,25 @@ export async function reqDelete(carId = "") {
     storeListCar.getState().setdata(parsedData)
   } catch (e) {
     storeListCar.getState().reset()
+    throw e?.rawmessage
+  }
+}
+
+export async function detail(carId = "") {
+  try {
+    storeCarDetail.getState().setloading()
+    const result = await getCar(`/${carId}`)
+    if (result.message !== "ok") throw result
+    const parsedData = new ModelCarDetail({
+      ...result.data?.data,
+      carShowroom: result.data?.data?.msShowroom,
+      carBrand: result.data?.data?.msCarBrand,
+      carImage: result.data?.data?.msCarImages,
+      carOtherPrice: result.data?.data?.msCarOtherPrices
+    })
+    storeCarDetail.getState().setdata(parsedData)
+  } catch (e) {
+    storeCarDetail.getState().reset()
     throw e?.rawmessage
   }
 }

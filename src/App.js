@@ -107,7 +107,15 @@ export  const  Routing = [
             }),
             new ChildRouting({
                 name: "Register Form Car",
-                path: "/new-car/formsubmit",
+                path: "/new-car/formsubmit/:type",
+                element: <Customloginchecker>
+                    <Newcarformsubmit />
+                </Customloginchecker>,
+                showSideBar: false
+            }),
+            new ChildRouting({
+                name: "Register Form Car",
+                path: "/new-car/formsubmit/:type/:carId",
                 element: <Customloginchecker>
                     <Newcarformsubmit />
                 </Customloginchecker>,

@@ -22,7 +22,7 @@ function FormBody() {
     const navigate = useNavigate()
 
     function gotoformsubmit() {
-        navigate("/register/new-car/formsubmit")
+        navigate("/register/new-car/formsubmit/create")
     }
 
     return(
@@ -51,6 +51,7 @@ function FormBody() {
 }
 
 function TableShow() {
+    const navigate = useNavigate()
     const store = storeListCar((state) => state)
     const alermsg = Customalert.useCustomAlert()
 
@@ -77,6 +78,7 @@ function TableShow() {
 
     async function updateData(params = "") {
         console.log(params);
+        navigate(`/register/new-car/formsubmit/update/${params}`)
     }
 
     return(
