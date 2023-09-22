@@ -60,7 +60,7 @@ function Index({
                     {datadd?.map((i,x) => (
                         <React.Fragment key={x} >
                             {/* {console.log({loopedvalue: JSON.stringify(i), valuedata})} */}
-                            <option value={JSON.stringify(i)}>{i?.name}</option>
+                            <option value={i?.id}>{i?.name}</option>
                         </React.Fragment>
                     ))}
                 </React.Fragment>

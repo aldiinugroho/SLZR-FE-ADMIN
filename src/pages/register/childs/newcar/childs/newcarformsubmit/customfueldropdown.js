@@ -13,11 +13,11 @@ function Customfueldropdown({
 }) {
   const store = [
     {
-      "id": "1",
+      "id": "Gasoline",
       "name": "Gasoline"
     },
     {
-      "id": "2",
+      "id": "Diesel",
       "name": "Diesel"
     }
   ]
