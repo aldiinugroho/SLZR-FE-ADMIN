@@ -21,25 +21,25 @@ export async function getList() {
 export async function create(params = {}) {
   try {
     storeListCar.getState().setloading()
-    const carBrand = JSON.parse(params.carBrand)
-    const carFuel = JSON.parse(params.carFuel)
-    const carShowroom = JSON.parse(params.carShowroom)
-    const carTransmission = JSON.parse(params.carTransmission)
-    const carYear = JSON.parse(params.carYear)
+    const carBrand = params.carBrand
+    const carFuel = params.carFuel
+    const carShowroom = params.carShowroom
+    const carTransmission = params.carTransmission
+    const carYear = params.carYear
     const carImage = JSON.parse(params.carImage)
     const carOtherPrice = params.carOtherPrice === "" ? [] : JSON.parse(params.carOtherPrice)
     const reqData = {
-      "showroomId": carShowroom.showroomId,
-      "carBrandId": carBrand.carBrandId,
+      "showroomId": carShowroom,
+      "carBrandId": carBrand,
       "carPlate": params.carPlate,
       "carName": params.carName,
       "carDescription": params.carDesc,
-      "carTransmission": carTransmission.name,
-      "carFuel": carFuel.name,
+      "carTransmission": carTransmission,
+      "carFuel": carFuel,
       "carTax": new Date(params.carTax),
       "carSTNK": params.carSTNK,
       "carBPKB": params.carBPKB,
-      "carYear": carYear.name,
+      "carYear": carYear,
       "carSellPrice": parseInt(params.carSellPrice.replace(/\./g,"")),
       "carBuyPrice": parseInt(params.carBuyPrice.replace(/\./g,"")),
       "carImage": carImage.map((i) => {

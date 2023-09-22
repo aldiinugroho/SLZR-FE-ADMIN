@@ -127,7 +127,7 @@ function SubmitForm({
     async function submitdata(params) {
         try {
             console.log("submitdata",params);
-            // await requestCar.create(params)
+            await requestCar.create(params)
         } catch (error) {
             alermsg(error)
         }
