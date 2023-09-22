@@ -90,7 +90,7 @@ function Index() {
                         ...storecardetail.data,
                         carTax: moment(storecardetail.data.carTax).format("yyyy-MM"),
                         carShowroom: storecardetail.data.carShowroom.showroomId,
-                        carShowroom: storecardetail.data.carBrand.carBrandId,
+                        carBrand: storecardetail.data.carBrand.carBrandId,
                         carDesc: storecardetail.data.carDescription,
                         carBuyPrice: formatNumber(storecardetail.data.carBuyPrice),
                         carSellPrice: formatNumber(storecardetail.data.carSellPrice),
