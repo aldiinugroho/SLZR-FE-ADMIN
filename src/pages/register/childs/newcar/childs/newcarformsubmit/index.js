@@ -99,6 +99,13 @@ function Index() {
                                 uploadId: i?.carImageId,
                                 uri: i?.carImage
                             }
+                        })),
+                        carOtherPrice: JSON.stringify(storecardetail.data.carOtherPrice.map((i) => {
+                            return {
+                                uid: i?.carOtherPriceId,
+                                carOtherPriceName: i?.carOtherPriceName,
+                                carOtherPrice: formatNumber(i?.carOtherPrice)
+                            }
                         }))
                     }}
                 />)}
@@ -327,6 +334,7 @@ function SubmitForm({
                         <div className="spacingblack"></div>
                         <div style={{ padding: 5 }}></div>
                         <Customcarotherprice 
+                            value={values.carOtherPrice}
                             onChangeValue={(value) => {
                                 setFieldValue("carOtherPrice",value.length === 0 ? "" : JSON.stringify(value))
                             }}

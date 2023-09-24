@@ -6,10 +6,19 @@ import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 
 function Customcarotherprice({
+  value = "",
   data = [],
   onChangeValue = () => {}
 }) {
   const [datavalue,setdatavalue] = React.useState(data)
+
+  React.useEffect(() => {
+    console.log("value Customcarotherprice",value);
+    if (value !== "") {
+      const newdata = JSON.parse(value)
+      setdatavalue(newdata)
+    }
+  },[value])
 
   function onChangeValueComp(params = new ModelCustomCarOtherPrice({})) {
     setdatavalue(prevItems => {
