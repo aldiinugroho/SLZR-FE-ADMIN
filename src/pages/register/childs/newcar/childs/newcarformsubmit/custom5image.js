@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 function Custom5image({
   onChangeValue = () => {},
-  value = [],
+  value = "",
   errorMessage = "",
   onFocus = () => {},
   onBlur = () => {},
@@ -19,6 +19,14 @@ function Custom5image({
   ])
   // make only image uploader 
   // after that stack it into array
+
+  React.useEffect(() => {
+    console.log("value Custom5image",value);
+    if (value !== "") {
+      const newdata = JSON.parse(value)
+      setimagedata(newdata)
+    }
+  },[value])
 
   function onSuccessUpload(params) {
     const uploadId = uuidv4()

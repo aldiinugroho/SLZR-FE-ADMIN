@@ -94,7 +94,12 @@ function Index() {
                         carDesc: storecardetail.data.carDescription,
                         carBuyPrice: formatNumber(storecardetail.data.carBuyPrice),
                         carSellPrice: formatNumber(storecardetail.data.carSellPrice),
-                        // carImage: JSON.stringify(storecardetail.data.carImage)
+                        carImage: JSON.stringify(storecardetail.data.carImage.map((i) => {
+                            return {
+                                uploadId: i?.carImageId,
+                                uri: i?.carImage
+                            }
+                        }))
                     }}
                 />)}
             </Sidebar>
@@ -126,12 +131,38 @@ function SubmitForm({
 
     async function submitdata(params) {
         try {
-            console.log("submitdata",params);
-            await requestCar.create(params)
+            if (type === "create") {
+                await createdata(params)
+            }
+            if (type === "update") {
+                await updatedata(params)
+            }
         } catch (error) {
             alermsg(error)
         }
     }
+
+    async function createdata(params) {
+        try {
+            console.log("createdata",params);
+            await requestCar.create(params)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async function updatedata(params) {
+        try {
+            console.log("updatedata",params);
+            // await requestCar.create(params)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    React.useEffect(() => {
+        console.log("initValue",initValue);
+    },[initValue])
 
     return(
         <div style={{
