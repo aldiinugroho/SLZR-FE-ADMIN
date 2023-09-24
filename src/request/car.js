@@ -1,6 +1,6 @@
 import { ModelCarDetail, storeCarDetail } from "../pages/register/childs/newcar/childs/newcarformsubmit/statedetailcar";
 import { ModelCar, storeListCar } from "../pages/register/childs/newcar/state";
-import { deleteCar, getCar, postCar } from "../services/car";
+import { deleteCar, getCar, patchCar, postCar } from "../services/car";
 // import { ModelShowroomForm, storeShowroomForm } from "../pages/register/childs/newshowroom/childs/newshowroomformsubmit/state";
 // import { ModelShowroom, storeListShowroom } from "../pages/register/childs/newshowroom/state";
 // import {deleteShowroom, getShowroom, patchShowroom, postShowroom} from "../services/showroom";
@@ -93,6 +93,48 @@ export async function detail(carId = "") {
     storeCarDetail.getState().setdata(parsedData)
   } catch (e) {
     storeCarDetail.getState().reset()
+    throw e?.rawmessage
+  }
+}
+
+export async function update(params = {}) {
+  try {
+    // storeListCar.getState().setloading()
+    const carImage = JSON.parse(params.carImage)
+    const carOtherPrice = params.carOtherPrice === "" ? [] : JSON.parse(params.carOtherPrice)
+    const reqData = {
+      "carId": params.carId,
+      "showroomId": params.carShowroom,
+      "carBrandId": params.carBrand,
+      "carPlate": params.carPlate,
+      "carName": params.carName,
+      "carDescription": params.carDesc,
+      "carTransmission": params.carTransmission,
+      "carFuel": params.carFuel,
+      "carTax": new Date(params.carTax),
+      "carSTNK": params.carSTNK,
+      "carBPKB": params.carBPKB,
+      "carYear": params.carYear,
+      "carSellPrice": parseInt(params.carSellPrice.replace(/\./g,"")),
+      "carBuyPrice": parseInt(params.carBuyPrice.replace(/\./g,"")),
+      "carImage": carImage.map((i) => {
+        return {
+          carImage: i.uri
+        }
+      }),
+      "carOtherPrice": carOtherPrice.map((i) => {
+        return {
+          carOtherPriceName: i?.carOtherPriceName,
+          carOtherPrice: parseInt(i?.carOtherPrice.replace(/\./g,"")),
+        }
+      })
+    }
+    const result = await patchCar("/update",reqData)
+    if (result.message !== "ok") throw result
+    const parsedData = result.data?.data.map((i) => new ModelCar(i))
+    storeListCar.getState().setdata(parsedData)
+  } catch (e) {
+    storeListCar.getState().reset()
     throw e?.rawmessage
   }
 }

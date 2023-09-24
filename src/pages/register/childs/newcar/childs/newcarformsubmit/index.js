@@ -106,7 +106,8 @@ function Index() {
                                 carOtherPriceName: i?.carOtherPriceName,
                                 carOtherPrice: formatNumber(i?.carOtherPrice)
                             }
-                        }))
+                        })),
+                        carId: carId
                     }}
                 />)}
             </Sidebar>
@@ -116,6 +117,7 @@ function Index() {
 
 function SubmitForm({
     initValue = {
+        carId: "",
         carName: "",
         carShowroom: "DEFAULT",
         carBrand: "DEFAULT",
@@ -160,8 +162,7 @@ function SubmitForm({
 
     async function updatedata(params) {
         try {
-            console.log("updatedata",params);
-            // await requestCar.create(params)
+            await requestCar.update(params)
         } catch (error) {
             throw error
         }
