@@ -13,11 +13,11 @@ function Customtransmissiondropdown({
 }) {
   const store = [
     {
-      "id": "1",
+      "id": "Matic",
       "name": "Matic"
     },
     {
-      "id": "2",
+      "id": "Manual",
       "name": "Manual"
     }
   ]
