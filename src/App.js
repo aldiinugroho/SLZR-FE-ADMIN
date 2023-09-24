@@ -122,6 +122,36 @@ export  const  Routing = [
                 showSideBar: false
             })
         ]
+    }),
+    new ParentRouting({
+        name: "Stok",
+        path: "/stok",
+        element: <Customloginchecker>
+            <Newcar />
+        </Customloginchecker>,
+        childs: [
+            new ChildRouting({
+                name: "Ready",
+                path: "/ready",
+                element: <Customloginchecker>
+                    <Newshowroom />
+                </Customloginchecker>
+            }),
+            new ChildRouting({
+                name: "Booked",
+                path: "/booked",
+                element: <Customloginchecker>
+                    <Newshowroom />
+                </Customloginchecker>
+            }),
+            new ChildRouting({
+                name: "Sold",
+                path: "/sold",
+                element: <Customloginchecker>
+                    <Newshowroom />
+                </Customloginchecker>
+            }),
+        ]
     })
 ]
 
