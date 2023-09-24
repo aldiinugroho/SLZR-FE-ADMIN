@@ -22,7 +22,7 @@ import Custom5image from './custom5image';
 import Customcarotherprice from './customcarotherprice';
 import { requestCar } from '../../../../../../request';
 import { storeListCar } from '../../state';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { storeCarDetail } from './statedetailcar';
 import { formatNumber } from '../../../../../../utils';
 import moment from 'moment/moment';
@@ -136,6 +136,7 @@ function SubmitForm({
     }
 }) {
     const {type} = useParams()
+    const navigate = useNavigate()
     const alermsg = Customalert.useCustomAlert()
 
     async function submitdata(params) {
@@ -146,6 +147,7 @@ function SubmitForm({
             if (type === "update") {
                 await updatedata(params)
             }
+            navigate("/register/new-car")
         } catch (error) {
             alermsg(error)
         }
