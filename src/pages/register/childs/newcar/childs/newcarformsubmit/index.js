@@ -69,7 +69,6 @@ function Index() {
             if (type === "create") return
             await requestCar.detail(carId)
         } catch (error) {
-            console.log(error);
             alertmsg(error)
         }
     }
