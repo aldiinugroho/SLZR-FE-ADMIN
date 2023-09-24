@@ -99,7 +99,7 @@ export async function detail(carId = "") {
 
 export async function update(params = {}) {
   try {
-    // storeListCar.getState().setloading()
+    storeListCar.getState().setloading()
     const carImage = JSON.parse(params.carImage)
     const carOtherPrice = params.carOtherPrice === "" ? [] : JSON.parse(params.carOtherPrice)
     const reqData = {
