@@ -91,18 +91,6 @@ function TableShow({
                   {/* <th className="styletablecell">Action</th> */}
               </tr>
               </thead>
-              {/* <tbody>
-                <tr>
-                    <td className="styletablecell">1</td>
-                    <td className="styletablecell">Car nama</td>
-                    <td className="styletablecell">Brand</td>
-                    <td className="styletablecell">Plat no</td>
-                    <td className="styletablecell">Tahun mobil</td>
-                    <td className="styletablecell">Pajak mobil</td>
-                    <td className="styletablecell">Harga jual</td>
-                    <td className="styletablecell">Harga beli</td>
-                </tr>
-              </tbody> */}
               {store.data?.map((i,x) => {
                   if (x % 2 === 0) {
                       return (
