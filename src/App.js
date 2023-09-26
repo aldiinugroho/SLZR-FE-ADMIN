@@ -6,6 +6,7 @@ import {Newcar, Newshowroom} from "./pages/register/childs";
 import {Newshowroomformsubmit} from "./pages/register/childs/newshowroom/childs";
 import {Newcarformsubmit} from "./pages/register/childs/newcar/childs";
 import { Customloginchecker } from "./components";
+import { Liststok } from "./pages/stok/childs";
 
 class ChildRouting {
     name = ''
@@ -127,28 +128,28 @@ export  const  Routing = [
         name: "Stok",
         path: "/stok",
         element: <Customloginchecker>
-            <Newcar />
+            <Liststok />
         </Customloginchecker>,
         childs: [
             new ChildRouting({
                 name: "Ready",
                 path: "/ready",
                 element: <Customloginchecker>
-                    <Newshowroom />
+                    <Liststok />
                 </Customloginchecker>
             }),
             new ChildRouting({
                 name: "Booked",
                 path: "/booked",
                 element: <Customloginchecker>
-                    <Newshowroom />
+                    <Liststok type={"Booked"} />
                 </Customloginchecker>
             }),
             new ChildRouting({
                 name: "Sold",
                 path: "/sold",
                 element: <Customloginchecker>
-                    <Newshowroom />
+                    <Liststok type={"Sold"} />
                 </Customloginchecker>
             }),
         ]
