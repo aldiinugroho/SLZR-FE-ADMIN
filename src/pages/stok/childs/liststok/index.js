@@ -4,6 +4,9 @@ import {
   Custombody, Customheader, Sidebar
 } from "../../../../components";
 import { requestCarBookKeeping } from '../../../../request';
+import { storeListStok } from './store';
+import moment from 'moment/moment';
+import { formatNumber } from '../../../../utils';
 
 function Index({
   type = "Ready"
@@ -39,7 +42,7 @@ function TableShow({
   type = ""
 }) {
   // const navigate = useNavigate()
-  // const store = storeListShowroom((state) => state)
+  const store = storeListStok((state) => state)
   const errmsg = Customalert.useCustomAlert()
 
   React.useEffect(() => {
@@ -88,7 +91,7 @@ function TableShow({
                   {/* <th className="styletablecell">Action</th> */}
               </tr>
               </thead>
-              <tbody>
+              {/* <tbody>
                 <tr>
                     <td className="styletablecell">1</td>
                     <td className="styletablecell">Car nama</td>
@@ -98,25 +101,25 @@ function TableShow({
                     <td className="styletablecell">Pajak mobil</td>
                     <td className="styletablecell">Harga jual</td>
                     <td className="styletablecell">Harga beli</td>
-                    {/* <td>
-                        <button onClick={() => goedit(i?.showroomId)}>update</button>
-                        <button onClick={() => godelete(i?.showroomId)}>delete</button>
-                    </td> */}
                 </tr>
-              </tbody>
-              {/* {store.data?.map((i,x) => {
+              </tbody> */}
+              {store.data?.map((i,x) => {
                   if (x % 2 === 0) {
                       return (
                           <tbody key={x}>
                           <tr>
                               <td className="styletablecell">{x+1}</td>
-                              <td className="styletablecell">{i?.showroomName}</td>
-                              <td className="styletablecell">{i?.showroomAddress}</td>
-                              <td className="styletablecell">{i?.showroomPhone}</td>
-                              <td>
+                              <td className="styletablecell">{i?.carName}</td>
+                              <td className="styletablecell">{i?.carBrand.carBrandName}</td>
+                              <td className="styletablecell">{i?.carPlate}</td>
+                              <td className="styletablecell">{i?.carYear}</td>
+                              <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
+                              <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
+                              <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td>
+                              {/* <td>
                                   <button onClick={() => goedit(i?.showroomId)}>update</button>
                                   <button onClick={() => godelete(i?.showroomId)}>delete</button>
-                              </td>
+                              </td> */}
                           </tr>
                           </tbody>
                       )
@@ -125,18 +128,22 @@ function TableShow({
                           <tbody key={x}>
                           <tr style={{ backgroundColor: "#d4d4d4" }}>
                               <td className="styletablecell">{x+1}</td>
-                              <td className="styletablecell">{i?.showroomName}</td>
-                              <td className="styletablecell">{i?.showroomAddress}</td>
-                              <td className="styletablecell">{i?.showroomPhone}</td>
-                              <td>
+                              <td className="styletablecell">{i?.carName}</td>
+                              <td className="styletablecell">{i?.carBrand.carBrandName}</td>
+                              <td className="styletablecell">{i?.carPlate}</td>
+                              <td className="styletablecell">{i?.carYear}</td>
+                              <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
+                              <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
+                              <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td>
+                              {/* <td>
                                   <button onClick={() => goedit(i?.showroomId)}>update</button>
                                   <button onClick={() => godelete(i?.showroomId)}>delete</button>
-                              </td>
+                              </td> */}
                           </tr>
                           </tbody>
                       )
                   }
-              })} */}
+              })}
           </table>
       </div>
   )

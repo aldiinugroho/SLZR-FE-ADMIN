@@ -44,7 +44,7 @@ class ModelResponseStokCarBookKeeping {
   carBookKeepingBookedFee = 0
   carBookKeepingStatus = ""
   carBuyFromId = ""
-  carBookKeepingPaymentTools = new ModelResponseStokCarBookKeepingPaymentTools({})
+  carBookKeepingPaymentTools = null
   carBookKeepingCarBuyFrom = new ModelResponseStokCarBookKeepingCarBuyFrom({})
   carLeasing = null
   constructor({
@@ -70,7 +70,7 @@ class ModelResponseStokCarBookKeeping {
     this.carBookKeepingBookedFee = carBookKeepingBookedFee
     this.carBookKeepingStatus = carBookKeepingStatus
     this.carBuyFromId = carBuyFromId
-    this.carBookKeepingPaymentTools = new ModelResponseStokCarBookKeepingPaymentTools(carBookKeepingPaymentTools)
+    this.carBookKeepingPaymentTools = carBookKeepingPaymentTools === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(carBookKeepingPaymentTools)
     this.carBookKeepingCarBuyFrom = new ModelResponseStokCarBookKeepingCarBuyFrom(carBookKeepingCarBuyFrom)
     this.carLeasing = carLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(carLeasing)
   }
