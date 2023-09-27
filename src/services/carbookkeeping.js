@@ -8,3 +8,11 @@ export async function getCarBookKeeping(path = "") {
     path: path
   })
 }
+
+export async function patchCarBookKeeping(path = "",body = {}) {
+  return await api.PATCH({
+    route: ROUTE,
+    path: path,
+    body: body
+  })
+}

@@ -8,6 +8,9 @@ const storeListStok = create((set) => ({
     data: [],
     loading: true
   }),
+  setOnlyLoading: () => set({
+    loading: true
+  }),
   setdata: (data = [new ModelResponseStok({})]) => {
     set({
       data: data,
@@ -16,6 +19,9 @@ const storeListStok = create((set) => ({
   },
   reset: () => set({
     data: [],
+    loading: false
+  }),
+  resetOnlyLoading: () => set({
     loading: false
   }),
 }))

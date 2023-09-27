@@ -1,18 +1,24 @@
 import * as React from 'react';
 import {
   Customalert,
-  Custombody, Customheader, Sidebar
+  Custombody, Customheader, Customspinner, Sidebar
 } from "../../../../components";
 import { requestCarBookKeeping } from '../../../../request';
 import { storeListStok } from './store';
 import moment from 'moment/moment';
 import { formatNumber } from '../../../../utils';
+import { ModelResponseStok } from './state';
 
 function Index({
   type = "Ready"
 }) {
+  const store = storeListStok((state) => state)
+
   return(
     <Custombody>
+      {store.loading && (
+          <Customspinner />
+      )}
       <Sidebar>
         <Customheader />
         <BodyComponent type={type} />
@@ -24,22 +30,69 @@ function Index({
 function BodyComponent({
   type = ""
 }) {
+  const [tabselector,settabselector] = React.useState("CBFI1")
+
+  function changeselector(params = "") {
+    settabselector(params)
+  }
+
+  React.useEffect(() => {
+    settabselector("CBFI1")
+  },[type])
+
   return (
     <div style={{
-      padding: 10
+      padding: 10,
+      display: "flex",
+      flexDirection: "column"
     }}>
       <h1>
         List {type} Car
       </h1>
       <div className="spacingblack"></div>
       <div style={{ padding: "10px" }}></div>
-      <TableShow type={type} />
+      <div style={{
+        display: type === "Booked" ? "inline-block" : "none",
+      }}>
+        <div style={{
+          display: 'flex'
+        }}>
+          <button
+            style={{
+                backgroundColor: tabselector === "CBFI1" ? "#B92929" : "#EFEFEF",
+                fontWeight: tabselector === "CBFI1" ? "bold" : "normal",
+                borderStyle: "none",
+                fontSize: "15px",
+                padding: "0.5rem",
+                paddingLeft: "2rem",
+                paddingRight: "2rem"
+            }}
+            onClick={() => changeselector("CBFI1")}
+          >Direct</button>
+          <div style={{ padding: 5 }}></div>
+          <button
+            style={{
+                backgroundColor: tabselector === "CBFI2" ? "#B92929" : "#EFEFEF",
+                fontWeight: tabselector === "CBFI2" ? "bold" : "normal",
+                borderStyle: "none",
+                fontSize: "15px",
+                padding: "0.5rem",
+                paddingLeft: "2rem",
+                paddingRight: "2rem"
+            }}
+            onClick={() => changeselector("CBFI2")}
+          >Website</button>
+        </div>
+        <div style={{ padding: "10px" }}></div>
+      </div>
+      <TableShow type={type} tabselector={tabselector} />
     </div>
   )
 }
 
 function TableShow({
-  type = ""
+  type = "",
+  tabselector = ""
 }) {
   // const navigate = useNavigate()
   const store = storeListStok((state) => state)
@@ -49,27 +102,49 @@ function TableShow({
     getlistdata()
   },[type])
 
+  React.useEffect(() => {
+    getlistdataonchangetabselector()
+  },[tabselector])
+
+  async function getlistdataonchangetabselector() {
+    try {
+      if (type === "Booked") {
+        console.log("only booked",tabselector);
+        await requestCarBookKeeping.getListBookedByCarBuyFrom(tabselector)
+      }
+    } catch (error) {
+      errmsg(errmsg)
+    }
+  }
 
   async function getlistdata() {
       try {
+        if (type === "Ready" || type === "Sold") {
+          console.log("only ready and sold");
           await requestCarBookKeeping.getList(type)
+        }
+        await getlistdataonchangetabselector()
       } catch (e) {
-          errmsg(e)
+        errmsg(e)
       }
   }
 
-  function goedit(showroomId = "") {
-      console.log(showroomId);
-      // navigate(`/register/new-showroom/formsubmit/update/${showroomId}`)
+  async function cencelprocess(data = new ModelResponseStok({})) {
+    try {
+      await requestCarBookKeeping.cancelBookedKeeping({
+        carId: data.carId,
+        carBookKeepingId: data.carBookKeeping[0].carBookKeepingId,
+        type: data.carBookKeeping[0]?.carBookKeepingCarBuyFrom?.carBuyFromId
+      })
+    } catch (error) {
+      errmsg(error)
+    }
   }
 
-  async function godelete(showroomId = "") {
-      try {
-          // await requestShowroom.reqDelete(showroomId)
-      } catch (error) {
-          // errmsg(error)
-      }
-  }
+  function processdata(data = new ModelResponseStok({})) {
+    console.log(data);
+    // navigate(`/register/new-showroom/formsubmit/update/${showroomId}`)
+}
 
   return(
       <div style={{
@@ -87,8 +162,13 @@ function TableShow({
                   <th className="styletablecell">Tahun Mobil</th>
                   <th className="styletablecell">Pajak Mobil</th>
                   <th className="styletablecell">Harga Jual</th>
-                  <th className="styletablecell">Harga Beli</th>
-                  {/* <th className="styletablecell">Action</th> */}
+                  {type !== "Ready" && (
+                    <React.Fragment>
+                      <th className="styletablecell">Harga Tawar</th>
+                      <th className="styletablecell">Booking Fee/DP</th>
+                    </React.Fragment>
+                  )}
+                  <th className="styletablecell">Action</th>
               </tr>
               </thead>
               {store.data?.map((i,x) => {
@@ -103,11 +183,23 @@ function TableShow({
                               <td className="styletablecell">{i?.carYear}</td>
                               <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
                               <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
-                              <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td>
-                              {/* <td>
-                                  <button onClick={() => goedit(i?.showroomId)}>update</button>
-                                  <button onClick={() => godelete(i?.showroomId)}>delete</button>
-                              </td> */}
+                              {/* <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td> */}
+                              {type === "Ready" && (
+                                <React.Fragment>
+                                  <td>
+                                    <button onClick={() => processdata(i)}>proses</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
+                              {type !== "Ready" && (
+                                <React.Fragment>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                                  <td>
+                                    <button onClick={() => cencelprocess(i)}>cancel</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
                           </tr>
                           </tbody>
                       )
@@ -122,11 +214,23 @@ function TableShow({
                               <td className="styletablecell">{i?.carYear}</td>
                               <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
                               <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
-                              <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td>
-                              {/* <td>
-                                  <button onClick={() => goedit(i?.showroomId)}>update</button>
-                                  <button onClick={() => godelete(i?.showroomId)}>delete</button>
-                              </td> */}
+                              {/* <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td> */}
+                              {type === "Ready" && (
+                                <React.Fragment>
+                                  <td>
+                                    <button onClick={() => processdata(i)}>proses</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
+                              {type !== "Ready" && (
+                                <React.Fragment>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                                  <td>
+                                    <button onClick={() => cencelprocess(i)}>cancel</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
                           </tr>
                           </tbody>
                       )
