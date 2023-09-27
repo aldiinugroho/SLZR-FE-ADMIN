@@ -8,6 +8,7 @@ import { storeListStok } from './store';
 import moment from 'moment/moment';
 import { formatNumber } from '../../../../utils';
 import { ModelResponseStok } from './state';
+import { useNavigate } from 'react-router-dom';
 
 function Index({
   type = "Ready"
@@ -97,6 +98,7 @@ function TableShow({
   // const navigate = useNavigate()
   const store = storeListStok((state) => state)
   const errmsg = Customalert.useCustomAlert()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     getlistdata()
@@ -144,7 +146,12 @@ function TableShow({
   function processdata(data = new ModelResponseStok({})) {
     console.log(data);
     // navigate(`/register/new-showroom/formsubmit/update/${showroomId}`)
-}
+  }
+
+  function detaildata(data = new ModelResponseStok({})) {
+    console.log(data);
+    navigate(`/stok/detail/${data.carId}`)
+  }
 
   return(
       <div style={{
@@ -188,6 +195,7 @@ function TableShow({
                                 <React.Fragment>
                                   <td>
                                     <button onClick={() => processdata(i)}>proses</button>
+                                    <button onClick={() => detaildata(i)}>detail</button>
                                   </td>
                                 </React.Fragment>
                               )}
@@ -197,6 +205,7 @@ function TableShow({
                                   <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
                                   <td>
                                     <button onClick={() => cencelprocess(i)}>cancel</button>
+                                    <button onClick={() => detaildata(i)}>detail</button>
                                   </td>
                                 </React.Fragment>
                               )}
@@ -219,6 +228,7 @@ function TableShow({
                                 <React.Fragment>
                                   <td>
                                     <button onClick={() => processdata(i)}>proses</button>
+                                    <button onClick={() => detaildata(i)}>detail</button>
                                   </td>
                                 </React.Fragment>
                               )}
@@ -228,6 +238,7 @@ function TableShow({
                                   <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
                                   <td>
                                     <button onClick={() => cencelprocess(i)}>cancel</button>
+                                    <button onClick={() => detaildata(i)}>detail</button>
                                   </td>
                                 </React.Fragment>
                               )}
