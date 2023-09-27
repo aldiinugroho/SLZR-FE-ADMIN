@@ -73,9 +73,17 @@ export  const  Routing = [
         name: "Register",
         path: "/register",
         element: <Customloginchecker>
-            <Newshowroom />
+            <Newcar />
         </Customloginchecker>,
         childs: [
+
+            new ChildRouting({
+                name: "Register Car",
+                path: "/new-car",
+                element: <Customloginchecker>
+                    <Newcar />
+                </Customloginchecker>
+            }),
             new ChildRouting({
                 name: "Register Showroom",
                 path: "/new-showroom",
@@ -98,13 +106,6 @@ export  const  Routing = [
                     <Newshowroomformsubmit />
                 </Customloginchecker>,
                 showSideBar: false
-            }),
-            new ChildRouting({
-                name: "Register Car",
-                path: "/new-car",
-                element: <Customloginchecker>
-                    <Newcar />
-                </Customloginchecker>
             }),
             new ChildRouting({
                 name: "Register Form Car",
