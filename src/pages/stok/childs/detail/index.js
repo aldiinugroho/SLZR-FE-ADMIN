@@ -57,7 +57,7 @@ function BodyComponent({
       <h1>Showroom</h1>
       <div className="spacingblack"></div>
       <div style={{ padding: 10 }}></div>
-      <ComponentCarShowroom />
+      <ComponentCarShowroom data={store.data} />
     </div>
   )
 }
@@ -78,15 +78,17 @@ function ComponentCarImage({
   )
 }
 
-function ComponentCarShowroom({}) {
+function ComponentCarShowroom({
+  data = new ModelResponseStok({})
+}) {
   return(
     <table style={{
       borderCollapse: "collapse"
     }}>
       <tbody>
-        <DataPopulate title={"Showroom"} value={"avanza veloz"} />
-        <DataPopulate title={"Nomor Showroom"} value={"avanza veloz"} />
-        <DataPopulate title={"Alamat Showroom"} value={"avanza veloz"} />
+        <DataPopulate title={"Showroom"} value={data.showroom.showroomName} />
+        <DataPopulate title={"Nomor Telphone Showroom"} value={data.showroom.showroomPhone} />
+        <DataPopulate title={"Alamat Showroom"} value={data.showroom.showroomAddress} />
       </tbody>
     </table>
   )
