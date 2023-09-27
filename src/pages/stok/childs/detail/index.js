@@ -111,6 +111,8 @@ function ComponentCarDetail({
         <DataPopulate title={"Bahan Bakar Mobil"} value={data.carFuel} />
         <DataPopulate title={"Deskripsi Mobil"} value={data.carDescription} />
         <DataPopulate title={"Harga Beli Mobil"} value={`Rp ${formatNumber(data.carBuyPrice)}`} />
+        <DataPopulate title={"STNK Mobil"} value={data.carSTNK ? "Tersedia" : "Tidak Tersedia"} />
+        <DataPopulate title={"BPKB Mobil"} value={data.carBPKB ? "Tersedia" : "Tidak Tersedia"} />
         <DataPopulate title={"Estimasi Harga Jual Mobil"} value={`Rp ${formatNumber(data.carSellPrice)}`} />
       </tbody>
     </table>
