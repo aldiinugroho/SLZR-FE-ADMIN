@@ -161,6 +161,14 @@ export  const  Routing = [
                     <Stok.Detail />
                 </Customloginchecker>
             }),
+            new ChildRouting({
+                name: "Proses",
+                path: "/proses/:carId",
+                showSideBar: false,
+                element: <Customloginchecker>
+                    <Stok.Proses />
+                </Customloginchecker>
+            }),
         ]
     })
 ]

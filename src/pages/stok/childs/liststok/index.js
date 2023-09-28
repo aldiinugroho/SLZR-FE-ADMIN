@@ -145,7 +145,7 @@ function TableShow({
 
   function processdata(data = new ModelResponseStok({})) {
     console.log(data);
-    // navigate(`/register/new-showroom/formsubmit/update/${showroomId}`)
+    navigate(`/stok/proses/${data.carId}`)
   }
 
   function detaildata(data = new ModelResponseStok({})) {
