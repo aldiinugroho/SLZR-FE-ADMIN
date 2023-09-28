@@ -206,6 +206,7 @@ function TableShow({
                                   <td>
                                     <button onClick={() => cencelprocess(i)}>cancel</button>
                                     <button onClick={() => detaildata(i)}>detail</button>
+                                    {type === "Booked" && <button>tandai terjual</button>}
                                   </td>
                                 </React.Fragment>
                               )}
