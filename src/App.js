@@ -78,7 +78,7 @@ export  const  Routing = [
         childs: [
 
             new ChildRouting({
-                name: "Register Car",
+                name: "Register Mobil",
                 path: "/new-car",
                 element: <Customloginchecker>
                     <Newcar />

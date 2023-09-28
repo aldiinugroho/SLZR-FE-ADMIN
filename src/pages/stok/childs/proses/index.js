@@ -11,8 +11,22 @@ function Index({
       <Sidebar>
         <Customheader />
         {/* {store.data !== null && <BodyComponent />} */}
+        <BodyComponent />
       </Sidebar>
     </Custombody>
+  )
+}
+
+function BodyComponent({
+
+}) {
+  return(
+    <div style={{
+      padding: 10
+    }}>
+      <h1>Proses Mobil</h1>
+      <div className="spacingblack"></div>
+    </div>
   )
 }
 

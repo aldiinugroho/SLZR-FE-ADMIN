@@ -48,7 +48,7 @@ function BodyComponent({
       flexDirection: "column"
     }}>
       <h1>
-        List {type} Car
+        List {type}
       </h1>
       <div className="spacingblack"></div>
       <div style={{ padding: "10px" }}></div>

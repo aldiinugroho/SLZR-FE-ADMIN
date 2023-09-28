@@ -179,7 +179,7 @@ function SubmitForm({
             padding: "10px",
         }}>
             <h1>
-                Register Car
+                Register Mobil
             </h1>
             <div className="spacingblack"></div>
             <div style={{ padding: 5 }}></div>
