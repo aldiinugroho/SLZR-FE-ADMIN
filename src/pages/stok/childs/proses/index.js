@@ -66,6 +66,48 @@ function FormSubmit({
             /* and other goodies */
         }) => (
             <React.Fragment>
+                <div style={{
+                  borderStyle: "solid",
+                  borderWidth: 1,
+                  borderColor: "gray",
+                  borderRadius: 5,
+                  padding: 10,
+                  width: "40%",
+                  padding: 10,
+                  boxSizing: "border-box"
+                }}>
+                  <div style={{ fontSize: 15 }}>Tipe Pembayaran</div>
+                  <div style={{ padding: 2 }}></div>
+                  <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      // backgroundColor: "pink"
+                  }}>
+                      <input 
+                      checked={values.carBPKB}
+                      onChange={e => {
+                          console.log("Kredit is checked",e.target.checked);
+                          // setFieldValue("carBPKB",e.target.checked)
+                      }}
+                      type="radio" name="paymenttools" value="CBKPT01" />
+                      <label style={{ fontSize: 15 }}>Kredit</label>
+                  </div>
+                  {/* <div style={{ padding: 5 }}></div> */}
+                  <div style={{
+                      display: "flex",
+                      alignItems: "center"
+                  }}>
+                      <input 
+                      checked={values.carBPKB}
+                      onChange={e => {
+                          console.log("Cash is checked",e.target.checked);
+                          // setFieldValue("carBPKB",e.target.checked)
+                      }}
+                      type="radio" name="paymenttools" value="CBKPT02" />
+                      <label style={{ fontSize: 15 }}>Cash</label>
+                  </div>
+                </div>
+                <div style={{ padding: 5 }}></div>
                 <Customtextfield
                     placeholder={"Nama"}
                     value={values.nama}
