@@ -39,7 +39,7 @@ function FormSubmit({
   initialValues = {
       name: "",
       phone: "",
-      paymenttools: "",
+      paymenttools: "CBKPT01",
       ktp: "",
       soldprice: "",
       bookedfee: "",
@@ -63,6 +63,7 @@ function FormSubmit({
             handleBlur,
             handleSubmit,
             isSubmitting,
+            setFieldValue
             /* and other goodies */
         }) => (
             <React.Fragment>
@@ -84,10 +85,10 @@ function FormSubmit({
                       // backgroundColor: "pink"
                   }}>
                       <input 
-                      checked={values.carBPKB}
+                      defaultChecked={true}
                       onChange={e => {
-                          console.log("Kredit is checked",e.target.checked);
-                          // setFieldValue("carBPKB",e.target.checked)
+                          console.log("Kredit is checked",e.target.value);
+                          setFieldValue("paymenttools",e.target.value)
                       }}
                       type="radio" name="paymenttools" value="CBKPT01" />
                       <label style={{ fontSize: 15 }}>Kredit</label>
@@ -98,10 +99,10 @@ function FormSubmit({
                       alignItems: "center"
                   }}>
                       <input 
-                      checked={values.carBPKB}
+                      // checked={values.carBPKB}
                       onChange={e => {
-                          console.log("Cash is checked",e.target.checked);
-                          // setFieldValue("carBPKB",e.target.checked)
+                          console.log("Cash is checked",e.target.value);
+                          setFieldValue("paymenttools",e.target.value)
                       }}
                       type="radio" name="paymenttools" value="CBKPT02" />
                       <label style={{ fontSize: 15 }}>Cash</label>
@@ -110,58 +111,63 @@ function FormSubmit({
                 <div style={{ padding: 5 }}></div>
                 <Customtextfield
                     placeholder={"Nama"}
-                    value={values.nama}
-                    onChange={handleChange("nama")}
-                    onBlur={handleBlur("nama")}
-                    touched={touched.nama}
-                    errorMessage={errors.nama}
+                    value={values.name}
+                    onChange={handleChange("name")}
+                    onBlur={handleBlur("name")}
+                    touched={touched.name}
+                    errorMessage={errors.name}
                 />
                 <div style={{ padding: 5 }}></div>
                 <Customtextfield
                     placeholder={"Nomor Handphone"}
-                    value={values.nama}
-                    onChange={handleChange("nama")}
-                    onBlur={handleBlur("nama")}
-                    touched={touched.nama}
-                    errorMessage={errors.nama}
+                    value={values.phone}
+                    onChange={handleChange("phone")}
+                    onBlur={handleBlur("phone")}
+                    touched={touched.phone}
+                    errorMessage={errors.phone}
                 />
                 <div style={{ padding: 5 }}></div>
                 <Customtextfield
+                    maxLength={16}
                     placeholder={"Nomor KTP"}
-                    value={values.nama}
-                    onChange={handleChange("nama")}
-                    onBlur={handleBlur("nama")}
-                    touched={touched.nama}
-                    errorMessage={errors.nama}
+                    value={values.ktp}
+                    onChange={handleChange("ktp")}
+                    onBlur={handleBlur("ktp")}
+                    touched={touched.ktp}
+                    errorMessage={errors.ktp}
                 />
                 <div style={{ padding: 5 }}></div>
                 <Customnumtextfield
                     placeholder={"Harga Jual"}
-                    value={values.nama}
-                    onChange={handleChange("nama")}
-                    onBlur={handleBlur("nama")}
-                    touched={touched.nama}
-                    errorMessage={errors.nama}
+                    value={values.soldprice}
+                    onChange={handleChange("soldprice")}
+                    onBlur={handleBlur("soldprice")}
+                    touched={touched.soldprice}
+                    errorMessage={errors.soldprice}
                 />
                 <div style={{ padding: 5 }}></div>
-                <Customnumtextfield
-                    placeholder={"Booking Fee/DP"}
-                    value={values.nama}
-                    onChange={handleChange("nama")}
-                    onBlur={handleBlur("nama")}
-                    touched={touched.nama}
-                    errorMessage={errors.nama}
-                />
-                <div style={{ padding: 5 }}></div>
-                <Customtextfield
-                    placeholder={"Leasing"}
-                    value={values.nama}
-                    onChange={handleChange("nama")}
-                    onBlur={handleBlur("nama")}
-                    touched={touched.nama}
-                    errorMessage={errors.nama}
-                />
-                <div style={{ padding: 5 }}></div>
+                {values.paymenttools === "CBKPT01" && (
+                  <React.Fragment>
+                    <Customnumtextfield
+                        placeholder={"Booking Fee/DP"}
+                        value={values.bookedfee}
+                        onChange={handleChange("bookedfee")}
+                        onBlur={handleBlur("bookedfee")}
+                        touched={touched.bookedfee}
+                        errorMessage={errors.bookedfee}
+                    />
+                    <div style={{ padding: 5 }}></div>
+                    <Customtextfield
+                        placeholder={"Leasing"}
+                        value={values.leasing}
+                        onChange={handleChange("leasing")}
+                        onBlur={handleBlur("leasing")}
+                        touched={touched.leasing}
+                        errorMessage={errors.leasing}
+                    />
+                    <div style={{ padding: 5 }}></div>
+                  </React.Fragment>
+                )}
                 <Custombutton
                     onClick={handleSubmit}
                     title={"Proses"}

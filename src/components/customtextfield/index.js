@@ -9,7 +9,8 @@ function Index({
     errorMessage = "",
     value = "",
     touched = false,
-    type = "text"
+    type = "text",
+    maxLength = 0
 }) {
     const errorStat = touched === true && errorMessage !== ""
     return(
@@ -19,7 +20,12 @@ function Index({
             display: "flex",
             flexDirection: "column"
         }}>
+            {maxLength !== 0 && <div style={{
+                fontSize: 12,
+                textAlign: "right"
+            }}>{value.length}/16</div>}
             <input
+                maxLength={maxLength === 0 ? 99999999 : maxLength}
                 type={type}
                 value={value}
                 onChange={onChange}
