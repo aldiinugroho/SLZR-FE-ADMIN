@@ -200,14 +200,30 @@ function TableShow({
                                   </td>
                                 </React.Fragment>
                               )}
-                              {type !== "Ready" && (
+                              {type === "Booked" && tabselector === "CBFI1" && (
                                 <React.Fragment>
                                   <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
                                   <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
                                   <td>
                                     <button onClick={() => cencelprocess(i)}>cancel</button>
                                     <button onClick={() => detaildata(i)}>detail</button>
-                                    {type === "Booked" && <button>tandai terjual</button>}
+                                    <button>tandai terjual</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
+                              {type === "Booked" && tabselector === "CBFI2" && (
+                                <React.Fragment>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                                  <td>
+                                    <button onClick={() => cencelprocess(i)}>cancel</button>
+                                    <button onClick={() => detaildata(i)}>detail</button>
+                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
+                                      <button>tandai terjual</button>
+                                    )}
+                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
+                                      <button>update</button>
+                                    )}
                                   </td>
                                 </React.Fragment>
                               )}
@@ -234,13 +250,30 @@ function TableShow({
                                   </td>
                                 </React.Fragment>
                               )}
-                              {type !== "Ready" && (
+                              {type === "Booked" && tabselector === "CBFI1" && (
                                 <React.Fragment>
                                   <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
                                   <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
                                   <td>
                                     <button onClick={() => cencelprocess(i)}>cancel</button>
                                     <button onClick={() => detaildata(i)}>detail</button>
+                                    <button>tandai terjual</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
+                              {type === "Booked" && tabselector === "CBFI2" && (
+                                <React.Fragment>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                                  <td>
+                                    <button onClick={() => cencelprocess(i)}>cancel</button>
+                                    <button onClick={() => detaildata(i)}>detail</button>
+                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
+                                      <button>tandai terjual</button>
+                                    )}
+                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
+                                      <button>update</button>
+                                    )}
                                   </td>
                                 </React.Fragment>
                               )}
