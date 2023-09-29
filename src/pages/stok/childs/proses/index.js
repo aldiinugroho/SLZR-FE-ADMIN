@@ -2,6 +2,8 @@ import * as React from "react";
 import { Customalert, Custombody, Custombutton, Customheader, Customnumtextfield, Customspinner, Customtextfield, Sidebar } from "../../../../components";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { requestCarBookKeeping } from "../../../../request";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Index({
 }) {
@@ -19,6 +21,23 @@ function Index({
   )
 }
 
+const submitformvalidation = Yup.object().shape({
+  name: Yup.string()
+      .required('Nama wajib diisi.'),
+  phone: Yup.string()
+      .required('Nomor handphone wajib diisi.'),
+  ktp: Yup.string()
+      .matches(/^[0-9]*$/g, 'KTP hanya boleh berisi angka.')
+      .min(16,"KTP harus 16 angka.")
+      .required('KTP wajib diisi.'),
+  soldprice: Yup.string()
+      .required('Harga jual wajib diisi.'),
+  bookedfee: Yup.string()
+      .required('Harga Booking/DP wajib diisi.'),
+  leasing: Yup.string()
+      .required('Leasing wajib diisi.'),
+});
+
 function BodyComponent({
 
 }) {
@@ -35,7 +54,7 @@ function BodyComponent({
 }
 
 function FormSubmit({
-  type = "",
+  buyfrom = "CBFI1",
   initialValues = {
       name: "",
       phone: "",
@@ -45,14 +64,39 @@ function FormSubmit({
       bookedfee: "",
       leasing: ""
   },
-  submit = () => {}
+  // submit = () => {}
 }) {
+  const alertmsg = Customalert.useCustomAlert()
+  const {carId} = useParams()
+  const navigate = useNavigate()
+
+  async function createData(params) {
+    try {
+      await requestCarBookKeeping.createCarBookKeeping({
+        carId: carId,
+        carBookKeepingBookedFee: params.bookedfee === "none" ? "" : params.bookedfee,
+        carBookKeepingKTP: params.ktp,
+        carBookKeepingName: params.name,
+        carBookKeepingPaymentToolsId: params.paymenttools,
+        carBookKeepingPhone: params.phone,
+        carBookKeepingSoldPrice: params.soldprice,
+        carBuyFromId: buyfrom,
+        carLeasing: params.leasing === "none" ? "" : params.leasing
+      })
+      // navigate after success
+      alertmsg("Berhasil Update Data")
+      navigate("/stok")
+    } catch (error) {
+      alertmsg(error)
+    }
+  }
+
   return(
     <Formik
         initialValues={initialValues}
-        // validationSchema={submitformvalidation}
+        validationSchema={submitformvalidation}
         onSubmit={(values, { setSubmitting }) => {
-            submit(values)
+          createData(values)
         }}
     >
         {({
@@ -89,6 +133,10 @@ function FormSubmit({
                       onChange={e => {
                           console.log("Kredit is checked",e.target.value);
                           setFieldValue("paymenttools",e.target.value)
+
+                          // clear value if KREDIT
+                          setFieldValue("bookedfee","")
+                          setFieldValue("leasing","")
                       }}
                       type="radio" name="paymenttools" value="CBKPT01" />
                       <label style={{ fontSize: 15 }}>Kredit</label>
@@ -103,6 +151,10 @@ function FormSubmit({
                       onChange={e => {
                           console.log("Cash is checked",e.target.value);
                           setFieldValue("paymenttools",e.target.value)
+
+                          // give value if CASH
+                          setFieldValue("bookedfee","none")
+                          setFieldValue("leasing","none")
                       }}
                       type="radio" name="paymenttools" value="CBKPT02" />
                       <label style={{ fontSize: 15 }}>Cash</label>

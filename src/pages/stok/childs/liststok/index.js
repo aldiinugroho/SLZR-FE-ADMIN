@@ -171,7 +171,8 @@ function TableShow({
                   <th className="styletablecell">Harga Jual</th>
                   {type !== "Ready" && (
                     <React.Fragment>
-                      <th className="styletablecell">Harga Tawar</th>
+                      {type === "Booked" && <th className="styletablecell">Harga Tawar</th>}
+                      {type === "Sold" && <th className="styletablecell">Harga Terjual</th>}
                       <th className="styletablecell">Booking Fee/DP</th>
                     </React.Fragment>
                   )}

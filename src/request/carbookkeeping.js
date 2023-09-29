@@ -1,7 +1,8 @@
 import { storeStokDetail } from "../pages/stok/childs/detail/store";
 import { ModelResponseStok, ModelResponseStokCarBookKeeping, ModelResponseStokCarBookKeepingCarBuyFrom, ModelResponseStokCarBookKeepingCarLeasing, ModelResponseStokCarBookKeepingPaymentTools, ModelResponseStokCarBrand, ModelResponseStokCarImage, ModelResponseStokCarOtherPrice, ModelResponseStokCarShowroom } from "../pages/stok/childs/liststok/state";
 import { storeListStok } from "../pages/stok/childs/liststok/store";
-import { getCarBookKeeping, patchCarBookKeeping } from "../services/carbookkeeping";
+import { storeCreateCarBookKeeping } from "../pages/stok/childs/proses/store";
+import { getCarBookKeeping, patchCarBookKeeping, postCarBookKeeping } from "../services/carbookkeeping";
 
 export async function getList(type = "") {
   try {
@@ -105,6 +106,39 @@ export async function getDetailByCarId(carId = "") {
     storeStokDetail.getState().setdata(parsedData)
   } catch (e) {
     storeStokDetail.getState().reset()
+    throw e?.rawmessage
+  }
+}
+
+export async function createCarBookKeeping({
+  carId = "",
+  carBuyFromId = "",
+  carBookKeepingPaymentToolsId = "",
+  carBookKeepingName = "",
+  carBookKeepingPhone = "",
+  carBookKeepingKTP = "",
+  carBookKeepingSoldPrice = 0,
+  carBookKeepingBookedFee = 0,
+  carLeasing = ""
+}) {
+  try {
+    storeCreateCarBookKeeping.getState().setloading()
+    const reqData = {
+      "carId": carId,
+      "carBuyFromId": carBuyFromId,
+      "carBookKeepingPaymentToolsId": carBookKeepingPaymentToolsId,
+      "carBookKeepingName": carBookKeepingName,
+      "carBookKeepingPhone": carBookKeepingPhone,
+      "carBookKeepingKTP": carBookKeepingKTP,
+      "carBookKeepingSoldPrice": parseInt(carBookKeepingSoldPrice.replace(/\./g,"")),
+      "carBookKeepingBookedFee": parseInt(carBookKeepingBookedFee === "" ? 0 : carBookKeepingBookedFee.replace(/\./g,"")),
+      "carLeasing": carLeasing
+    }
+    const result = await postCarBookKeeping("/create",reqData)
+    if (result.message !== "ok") throw result
+    storeCreateCarBookKeeping.getState().setdata()
+  } catch (e) {
+    storeCreateCarBookKeeping.getState().reset()
     throw e?.rawmessage
   }
 }

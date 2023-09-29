@@ -16,3 +16,11 @@ export async function patchCarBookKeeping(path = "",body = {}) {
     body: body
   })
 }
+
+export async function postCarBookKeeping(path = "",body = {}) {
+  return await api.POST({
+    route: ROUTE,
+    path: path,
+    body: body
+  })
+}
