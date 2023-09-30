@@ -227,6 +227,15 @@ function TableShow({
                                   </td>
                                 </React.Fragment>
                               )}
+                              {type === "Sold" && (
+                                <React.Fragment>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                                  <td>
+                                    <button onClick={() => cencelprocess(i)}>cancel</button>
+                                  </td>
+                                </React.Fragment>
+                              )}
                           </tr>
                           </tbody>
                       )
@@ -274,6 +283,15 @@ function TableShow({
                                     {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
                                       <button>update</button>
                                     )}
+                                  </td>
+                                </React.Fragment>
+                              )}
+                              {type === "Sold" && (
+                                <React.Fragment>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                                  <td>
+                                    <button onClick={() => cencelprocess(i)}>cancel</button>
                                   </td>
                                 </React.Fragment>
                               )}
