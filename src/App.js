@@ -169,6 +169,14 @@ export  const  Routing = [
                     <Stok.Proses />
                 </Customloginchecker>
             }),
+            new ChildRouting({
+                name: "Proses Website",
+                path: "/proses/CBFI2/:carBookKeepingId",
+                showSideBar: false,
+                element: <Customloginchecker>
+                    <Stok.Proses />
+                </Customloginchecker>
+            }),
         ]
     })
 ]
