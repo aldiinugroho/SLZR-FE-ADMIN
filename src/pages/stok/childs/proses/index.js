@@ -41,6 +41,15 @@ const submitformvalidation = Yup.object().shape({
 function BodyComponent({
 
 }) {
+  const {carId,carBookKeepingId} = useParams()
+
+  React.useEffect(()=>{
+    console.log({
+      carId,
+      carBookKeepingId
+    });
+  },[])
+
   return(
     <div style={{
       padding: 10

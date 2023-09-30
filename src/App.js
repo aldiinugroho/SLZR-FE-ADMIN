@@ -171,7 +171,7 @@ export  const  Routing = [
             }),
             new ChildRouting({
                 name: "Proses Website",
-                path: "/proses/CBFI2/:carBookKeepingId",
+                path: "/proses/:carId/:carBookKeepingId",
                 showSideBar: false,
                 element: <Customloginchecker>
                     <Stok.Proses />
