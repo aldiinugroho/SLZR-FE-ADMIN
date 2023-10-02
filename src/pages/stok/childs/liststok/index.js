@@ -157,6 +157,11 @@ function TableShow({
     navigate(`/stok/proses/CBFI2/${data.carBookKeeping[0].carBookKeepingId}`)
   }
 
+  function updatemarksold(data = new ModelResponseStok({})) {
+    console.log(data);
+    // navigate(`/stok/proses/CBFI2/${data.carBookKeeping[0].carBookKeepingId}`)
+  }
+
   return(
       <div style={{
           display: "inline-block",
@@ -210,7 +215,7 @@ function TableShow({
                           <td>
                             <button onClick={() => cencelprocess(i)}>cancel</button>
                             <button onClick={() => detaildata(i)}>detail</button>
-                            <button>tandai terjual</button>
+                            <button onClick={() => updatemarksold(i)}>tandai terjual</button>
                           </td>
                         </React.Fragment>
                       )}
@@ -222,7 +227,7 @@ function TableShow({
                             <button onClick={() => cencelprocess(i)}>cancel</button>
                             <button onClick={() => detaildata(i)}>detail</button>
                             {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
-                              <button>tandai terjual</button>
+                              <button onClick={() => updatemarksold(i)}>tandai terjual</button>
                             )}
                             {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
                               <button onClick={() => updatefromweb(i)}>proses</button>
@@ -235,6 +240,7 @@ function TableShow({
                           <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
                           <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
                           <td>
+                            <button onClick={() => detaildata(i)}>detail</button>
                             <button onClick={() => cencelprocess(i)}>cancel</button>
                           </td>
                         </React.Fragment>
