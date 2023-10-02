@@ -2,6 +2,7 @@ import { storeStokDetail } from "../pages/stok/childs/detail/store";
 import { ModelResponseStok, ModelResponseStokCarBookKeeping, ModelResponseStokCarBookKeepingCarBuyFrom, ModelResponseStokCarBookKeepingCarLeasing, ModelResponseStokCarBookKeepingPaymentTools, ModelResponseStokCarBrand, ModelResponseStokCarImage, ModelResponseStokCarOtherPrice, ModelResponseStokCarShowroom } from "../pages/stok/childs/liststok/state";
 import { storeListStok } from "../pages/stok/childs/liststok/store";
 import { storeCreateCarBookKeeping } from "../pages/stok/childs/proses/store";
+import { storeDetailBookKeepingWebsite } from "../pages/stok/childs/proses/storedetailbookkeepingwebsite";
 import { getCarBookKeeping, patchCarBookKeeping, postCarBookKeeping } from "../services/carbookkeeping";
 
 export async function getList(type = "") {
@@ -139,6 +140,26 @@ export async function createCarBookKeeping({
     storeCreateCarBookKeeping.getState().setdata()
   } catch (e) {
     storeCreateCarBookKeeping.getState().reset()
+    throw e?.rawmessage
+  }
+}
+
+export async function getDetailFromWebsiteOnly(carBookKeepingId = "") {
+  try {
+    storeDetailBookKeepingWebsite.getState().setloading()
+    const result = await getCarBookKeeping(`/${carBookKeepingId}`)
+    if (result.message !== "ok") throw result
+    const x = result.data?.data
+    const responseData = new ModelResponseStokCarBookKeeping({
+      ...x,
+      carBookKeepingCarBuyFrom: new ModelResponseStokCarBookKeepingCarBuyFrom(x?.msCarBuyFrom),
+      carBookKeepingPaymentTools: x?.msCarBookKeepingPaymentTool === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(x?.msCarBookKeepingPaymentTool),
+      carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing)
+    })
+    console.log(responseData);
+    storeDetailBookKeepingWebsite.getState().setdata(responseData)
+  } catch (e) {
+    storeDetailBookKeepingWebsite.getState().reset()
     throw e?.rawmessage
   }
 }

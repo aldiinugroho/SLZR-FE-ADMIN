@@ -153,6 +153,10 @@ function TableShow({
     navigate(`/stok/detail/${data.carId}`)
   }
 
+  function updatefromweb(data = new ModelResponseStok({})) {
+    navigate(`/stok/proses/CBFI2/${data.carBookKeeping[0].carBookKeepingId}`)
+  }
+
   return(
       <div style={{
           display: "inline-block",
@@ -180,125 +184,64 @@ function TableShow({
               </tr>
               </thead>
               {store.data?.map((i,x) => {
-                  if (x % 2 === 0) {
-                      return (
-                          <tbody key={x}>
-                          <tr>
-                              <td className="styletablecell">{x+1}</td>
-                              <td className="styletablecell">{i?.carName}</td>
-                              <td className="styletablecell">{i?.carBrand.carBrandName}</td>
-                              <td className="styletablecell">{i?.carPlate}</td>
-                              <td className="styletablecell">{i?.carYear}</td>
-                              <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
-                              <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
-                              {/* <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td> */}
-                              {type === "Ready" && (
-                                <React.Fragment>
-                                  <td>
-                                    <button onClick={() => processdata(i)}>proses</button>
-                                    <button onClick={() => detaildata(i)}>detail</button>
-                                  </td>
-                                </React.Fragment>
-                              )}
-                              {type === "Booked" && tabselector === "CBFI1" && (
-                                <React.Fragment>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
-                                  <td>
-                                    <button onClick={() => cencelprocess(i)}>cancel</button>
-                                    <button onClick={() => detaildata(i)}>detail</button>
-                                    <button>tandai terjual</button>
-                                  </td>
-                                </React.Fragment>
-                              )}
-                              {type === "Booked" && tabselector === "CBFI2" && (
-                                <React.Fragment>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
-                                  <td>
-                                    <button onClick={() => cencelprocess(i)}>cancel</button>
-                                    <button onClick={() => detaildata(i)}>detail</button>
-                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
-                                      <button>tandai terjual</button>
-                                    )}
-                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
-                                      <button>update</button>
-                                    )}
-                                  </td>
-                                </React.Fragment>
-                              )}
-                              {type === "Sold" && (
-                                <React.Fragment>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
-                                  <td>
-                                    <button onClick={() => cencelprocess(i)}>cancel</button>
-                                  </td>
-                                </React.Fragment>
-                              )}
-                          </tr>
-                          </tbody>
-                      )
-                  } else  {
-                      return (
-                          <tbody key={x}>
-                          <tr style={{ backgroundColor: "#d4d4d4" }}>
-                              <td className="styletablecell">{x+1}</td>
-                              <td className="styletablecell">{i?.carName}</td>
-                              <td className="styletablecell">{i?.carBrand.carBrandName}</td>
-                              <td className="styletablecell">{i?.carPlate}</td>
-                              <td className="styletablecell">{i?.carYear}</td>
-                              <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
-                              <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
-                              {/* <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td> */}
-                              {type === "Ready" && (
-                                <React.Fragment>
-                                  <td>
-                                    <button onClick={() => processdata(i)}>proses</button>
-                                    <button onClick={() => detaildata(i)}>detail</button>
-                                  </td>
-                                </React.Fragment>
-                              )}
-                              {type === "Booked" && tabselector === "CBFI1" && (
-                                <React.Fragment>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
-                                  <td>
-                                    <button onClick={() => cencelprocess(i)}>cancel</button>
-                                    <button onClick={() => detaildata(i)}>detail</button>
-                                    <button>tandai terjual</button>
-                                  </td>
-                                </React.Fragment>
-                              )}
-                              {type === "Booked" && tabselector === "CBFI2" && (
-                                <React.Fragment>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
-                                  <td>
-                                    <button onClick={() => cencelprocess(i)}>cancel</button>
-                                    <button onClick={() => detaildata(i)}>detail</button>
-                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
-                                      <button>tandai terjual</button>
-                                    )}
-                                    {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
-                                      <button>update</button>
-                                    )}
-                                  </td>
-                                </React.Fragment>
-                              )}
-                              {type === "Sold" && (
-                                <React.Fragment>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
-                                  <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
-                                  <td>
-                                    <button onClick={() => cencelprocess(i)}>cancel</button>
-                                  </td>
-                                </React.Fragment>
-                              )}
-                          </tr>
-                          </tbody>
-                      )
-                  }
+                return (
+                  <tbody key={x}>
+                  <tr style={{ backgroundColor: x % 2 === 0 ? "white" : "#d4d4d4" }}>
+                      <td className="styletablecell">{x+1}</td>
+                      <td className="styletablecell">{i?.carName}</td>
+                      <td className="styletablecell">{i?.carBrand.carBrandName}</td>
+                      <td className="styletablecell">{i?.carPlate}</td>
+                      <td className="styletablecell">{i?.carYear}</td>
+                      <td className="styletablecell">{moment(i?.carTax).format("MMMM YYYY")}</td>
+                      <td className="styletablecell">Rp {formatNumber(i?.carSellPrice)}</td>
+                      {/* <td className="styletablecell">Rp {formatNumber(i?.carBuyPrice)}</td> */}
+                      {type === "Ready" && (
+                        <React.Fragment>
+                          <td>
+                            <button onClick={() => processdata(i)}>proses</button>
+                            <button onClick={() => detaildata(i)}>detail</button>
+                          </td>
+                        </React.Fragment>
+                      )}
+                      {type === "Booked" && tabselector === "CBFI1" && (
+                        <React.Fragment>
+                          <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                          <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                          <td>
+                            <button onClick={() => cencelprocess(i)}>cancel</button>
+                            <button onClick={() => detaildata(i)}>detail</button>
+                            <button>tandai terjual</button>
+                          </td>
+                        </React.Fragment>
+                      )}
+                      {type === "Booked" && tabselector === "CBFI2" && (
+                        <React.Fragment>
+                          <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                          <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                          <td>
+                            <button onClick={() => cencelprocess(i)}>cancel</button>
+                            <button onClick={() => detaildata(i)}>detail</button>
+                            {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
+                              <button>tandai terjual</button>
+                            )}
+                            {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
+                              <button onClick={() => updatefromweb(i)}>proses</button>
+                            )}
+                          </td>
+                        </React.Fragment>
+                      )}
+                      {type === "Sold" && (
+                        <React.Fragment>
+                          <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
+                          <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
+                          <td>
+                            <button onClick={() => cencelprocess(i)}>cancel</button>
+                          </td>
+                        </React.Fragment>
+                      )}
+                  </tr>
+                  </tbody>
+                )
               })}
           </table>
       </div>

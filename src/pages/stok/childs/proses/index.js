@@ -4,14 +4,18 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { requestCarBookKeeping } from "../../../../request";
 import { useNavigate, useParams } from "react-router-dom";
+import { storeDetailBookKeepingWebsite } from "./storedetailbookkeepingwebsite";
+import { formatNumber } from "../../../../utils";
 
 function Index({
 }) {
+  const store = storeDetailBookKeepingWebsite((state) => state)
+    
   return(
     <Custombody>
-      {/* {store.loading && (
+      {store.loading && (
         <Customspinner />
-      )} */}
+      )}
       <Sidebar>
         <Customheader />
         {/* {store.data !== null && <BodyComponent />} */}
@@ -41,14 +45,22 @@ const submitformvalidation = Yup.object().shape({
 function BodyComponent({
 
 }) {
+  const store = storeDetailBookKeepingWebsite((state) => state)
   const {carId,carBookKeepingId} = useParams()
+  const alertmsg = Customalert.useCustomAlert()
 
   React.useEffect(()=>{
-    console.log({
-      carId,
-      carBookKeepingId
-    });
+    getDataOnlyForWeb()
   },[])
+
+  async function getDataOnlyForWeb() {
+    try {
+      if (carId !== "CBFI2") return
+      await requestCarBookKeeping.getDetailFromWebsiteOnly(carBookKeepingId)
+    } catch (error) {
+      alertmsg(error)
+    }
+  }
 
   return(
     <div style={{
@@ -57,7 +69,21 @@ function BodyComponent({
       <h1>Proses Mobil</h1>
       <div className="spacingblack"></div>
       <div style={{ padding: "10px" }}></div>
-      <FormSubmit />
+      {carId === "CBFI2" && store.data !== null && (
+        <FormSubmit 
+          buyfrom="CBFI2"
+          initialValues={{
+            name: store.data?.carBookKeepingName,
+            phone: store.data?.carBookKeepingPhone,
+            ktp: store.data?.carBookKeepingKTP,
+            soldprice: store.data?.carBookKeepingSoldPrice,
+            paymenttools: "CBKPT01",
+            bookedfee: store.data?.carBookKeepingBookedFee,
+            leasing: ""
+          }}
+        />
+      )}
+      {carId !== "CBFI2" && <FormSubmit />}
     </div>
   )
 }
@@ -81,20 +107,25 @@ function FormSubmit({
 
   async function createData(params) {
     try {
-      await requestCarBookKeeping.createCarBookKeeping({
-        carId: carId,
-        carBookKeepingBookedFee: params.bookedfee === "none" ? "" : params.bookedfee,
-        carBookKeepingKTP: params.ktp,
-        carBookKeepingName: params.name,
-        carBookKeepingPaymentToolsId: params.paymenttools,
-        carBookKeepingPhone: params.phone,
-        carBookKeepingSoldPrice: params.soldprice,
-        carBuyFromId: buyfrom,
-        carLeasing: params.leasing === "none" ? "" : params.leasing
-      })
-      // navigate after success
-      alertmsg("Berhasil Update Data")
-      navigate("/stok")
+      if (buyfrom === "CBFI1") {
+        await requestCarBookKeeping.createCarBookKeeping({
+          carId: carId,
+          carBookKeepingBookedFee: params.bookedfee === "none" ? "" : params.bookedfee,
+          carBookKeepingKTP: params.ktp,
+          carBookKeepingName: params.name,
+          carBookKeepingPaymentToolsId: params.paymenttools,
+          carBookKeepingPhone: params.phone,
+          carBookKeepingSoldPrice: params.soldprice,
+          carBuyFromId: buyfrom,
+          carLeasing: params.leasing === "none" ? "" : params.leasing
+        })
+      }
+      if (buyfrom === "CBFI2") {
+        console.log(params);
+      }
+      // // navigate after success
+      // alertmsg("Berhasil Update Data")
+      // navigate("/stok")
     } catch (error) {
       alertmsg(error)
     }
@@ -144,7 +175,9 @@ function FormSubmit({
                           setFieldValue("paymenttools",e.target.value)
 
                           // clear value if KREDIT
-                          setFieldValue("bookedfee","")
+                          if (buyfrom === "CBFI1") {
+                            setFieldValue("bookedfee","")
+                          }
                           setFieldValue("leasing","")
                       }}
                       type="radio" name="paymenttools" value="CBKPT01" />
@@ -162,7 +195,9 @@ function FormSubmit({
                           setFieldValue("paymenttools",e.target.value)
 
                           // give value if CASH
-                          setFieldValue("bookedfee","none")
+                          if (buyfrom === "CBFI1") {
+                            setFieldValue("bookedfee","none")
+                          }
                           setFieldValue("leasing","none")
                       }}
                       type="radio" name="paymenttools" value="CBKPT02" />
@@ -200,24 +235,42 @@ function FormSubmit({
                 <div style={{ padding: 5 }}></div>
                 <Customnumtextfield
                     placeholder={"Harga Jual"}
-                    value={values.soldprice}
+                    value={formatNumber(values.soldprice)}
                     onChange={handleChange("soldprice")}
                     onBlur={handleBlur("soldprice")}
                     touched={touched.soldprice}
                     errorMessage={errors.soldprice}
                 />
                 <div style={{ padding: 5 }}></div>
+                {buyfrom === "CBFI2" && (
+                      <React.Fragment>
+                        <Customnumtextfield
+                            disabled={true}
+                            placeholder={"Booking Fee/DP"}
+                            value={formatNumber(values.bookedfee)}
+                            onChange={handleChange("bookedfee")}
+                            onBlur={handleBlur("bookedfee")}
+                            touched={touched.bookedfee}
+                            errorMessage={errors.bookedfee}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                      </React.Fragment>
+                    )}
                 {values.paymenttools === "CBKPT01" && (
                   <React.Fragment>
-                    <Customnumtextfield
-                        placeholder={"Booking Fee/DP"}
-                        value={values.bookedfee}
-                        onChange={handleChange("bookedfee")}
-                        onBlur={handleBlur("bookedfee")}
-                        touched={touched.bookedfee}
-                        errorMessage={errors.bookedfee}
-                    />
-                    <div style={{ padding: 5 }}></div>
+                    {buyfrom === "CBFI1" && (
+                      <React.Fragment>
+                        <Customnumtextfield
+                            placeholder={"Booking Fee/DP"}
+                            value={formatNumber(values.bookedfee)}
+                            onChange={handleChange("bookedfee")}
+                            onBlur={handleBlur("bookedfee")}
+                            touched={touched.bookedfee}
+                            errorMessage={errors.bookedfee}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                      </React.Fragment>
+                    )}
                     <Customtextfield
                         placeholder={"Leasing"}
                         value={values.leasing}

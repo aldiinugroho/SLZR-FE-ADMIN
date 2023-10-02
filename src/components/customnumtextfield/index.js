@@ -10,17 +10,18 @@ function Index({
     errorMessage = "",
     value = "",
     touched = false,
-    type = "text"
+    type = "text",
+    disabled = false
 }) {
     const errorStat = touched === true && errorMessage !== ""
     return(
         <div style={{
             width: width,
-            // backgroundColor: "yellow",
             display: "flex",
             flexDirection: "column"
         }}>
             <div style={{
+                backgroundColor: disabled ? "#d9d9d9" : "white",
                 // display: "flex",
                 borderColor: errorStat ? "red" : "gray",
                 borderRadius: "5px",
@@ -37,6 +38,7 @@ function Index({
                         fontSize: 15
                     }}>Rp</div>
                     <input
+                        disabled={disabled}
                         type={type}
                         value={value}
                         onChange={(e) => {
@@ -54,7 +56,8 @@ function Index({
                         style={{
                             width: "100%",
                             flex: 1,
-                            // backgroundColor: "yellow",
+                            color: "black",
+                            backgroundColor: disabled ? "#d9d9d9" : "white",
                             border: "none",
                             outline: "none",
                             fontSize: "15px"
