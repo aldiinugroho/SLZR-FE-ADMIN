@@ -183,3 +183,39 @@ export async function setMarkSold({
     throw e?.rawmessage
   }
 }
+
+export async function updateForWeb({
+  carId = "",
+  carBookKeepingId = "",
+  carBookKeepingPaymentToolsId = "",
+  carBookKeepingName = "",
+  carBookKeepingPhone = "",
+  carBookKeepingKTP = "",
+  carBookKeepingSoldPrice = "",
+  carLeasing = ""
+}) {
+  try {
+    const reqData = {
+      carId,
+      carBookKeepingId,
+      carBookKeepingPaymentToolsId,
+      carBookKeepingName,
+      carBookKeepingPhone,
+      carBookKeepingKTP,
+      carBookKeepingSoldPrice: parseInt(carBookKeepingSoldPrice),
+      carLeasing: carLeasing === "none" ? "" : carLeasing
+    }
+    console.log(reqData);
+    // storeMarkSold.getState().setloading()
+    // const reqData = {
+    //   carId,
+    //   carBookKeepingId
+    // // }
+    // const result = await patchCarBookKeeping("/mark-sold",reqData)
+    // if (result.message !== "ok") throw result
+    // storeMarkSold.getState().setdata()
+  } catch (e) {
+    // storeMarkSold.getState().reset()
+    throw e?.rawmessage
+  }
+}

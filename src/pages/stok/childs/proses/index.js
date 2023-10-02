@@ -101,6 +101,7 @@ function FormSubmit({
   },
   // submit = () => {}
 }) {
+  const store = storeDetailBookKeepingWebsite((state) => state)
   const alertmsg = Customalert.useCustomAlert()
   const {carId} = useParams()
   const navigate = useNavigate()
@@ -121,11 +122,20 @@ function FormSubmit({
         })
       }
       if (buyfrom === "CBFI2") {
-        console.log(params);
+        await requestCarBookKeeping.updateForWeb({
+          carBookKeepingId: store.data?.carBookKeepingId,
+          carId: store.data?.carId,
+          carBookKeepingKTP: params.ktp,
+          carBookKeepingName: params.name,
+          carBookKeepingPaymentToolsId: params.paymenttools,
+          carBookKeepingPhone: params.phone,
+          carBookKeepingSoldPrice: params.soldprice,
+          carLeasing: params.leasing,
+        })
       }
       // // navigate after success
-      alertmsg("Berhasil Update Data")
-      navigate("/stok")
+      // alertmsg("Berhasil Update Data")
+      // navigate("/stok")
     } catch (error) {
       alertmsg(error)
     }

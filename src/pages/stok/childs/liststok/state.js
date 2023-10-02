@@ -36,6 +36,7 @@ class ModelResponseStokCarBookKeepingPaymentTools {
 
 class ModelResponseStokCarBookKeeping {
   carBookKeepingId = ""
+  carId = ""
   carBookKeepingName = ""
   carBookKeepingKTP = ""
   carBookKeepingPaymentToolsId = ""
@@ -50,6 +51,7 @@ class ModelResponseStokCarBookKeeping {
   createdAt = new Date()
   constructor({
     carBookKeepingId = "",
+    carId = "",
     carBookKeepingName = "",
     carBookKeepingKTP = "",
     carBookKeepingPaymentToolsId = "",
@@ -64,6 +66,7 @@ class ModelResponseStokCarBookKeeping {
     createdAt = new Date()
   }) {
     this.carBookKeepingId = carBookKeepingId
+    this.carId = carId
     this.carBookKeepingName = carBookKeepingName
     this.carBookKeepingKTP = carBookKeepingKTP
     this.carBookKeepingPaymentToolsId = carBookKeepingPaymentToolsId
