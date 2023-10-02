@@ -6,14 +6,16 @@ import { requestCarBookKeeping } from "../../../../request";
 import { useNavigate, useParams } from "react-router-dom";
 import { storeDetailBookKeepingWebsite } from "./storedetailbookkeepingwebsite";
 import { formatNumber } from "../../../../utils";
+import { storeUpdateFromWeb } from "./storeupdatefromweb";
 
 function Index({
 }) {
   const store = storeDetailBookKeepingWebsite((state) => state)
+  const storeupdtfromweb = storeUpdateFromWeb((state) => state)
     
   return(
     <Custombody>
-      {store.loading && (
+      {(store.loading || storeupdtfromweb.loading) && (
         <Customspinner />
       )}
       <Sidebar>
@@ -133,9 +135,9 @@ function FormSubmit({
           carLeasing: params.leasing,
         })
       }
-      // // navigate after success
-      // alertmsg("Berhasil Update Data")
-      // navigate("/stok")
+      // navigate after success
+      alertmsg("Berhasil Update Data")
+      navigate("/stok")
     } catch (error) {
       alertmsg(error)
     }

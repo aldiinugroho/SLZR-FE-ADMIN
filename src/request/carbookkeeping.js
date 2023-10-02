@@ -4,6 +4,7 @@ import { storeListStok } from "../pages/stok/childs/liststok/store";
 import { storeMarkSold } from "../pages/stok/childs/liststok/storev1marksold";
 import { storeCreateCarBookKeeping } from "../pages/stok/childs/proses/store";
 import { storeDetailBookKeepingWebsite } from "../pages/stok/childs/proses/storedetailbookkeepingwebsite";
+import { storeUpdateFromWeb } from "../pages/stok/childs/proses/storeupdatefromweb";
 import { getCarBookKeeping, patchCarBookKeeping, postCarBookKeeping } from "../services/carbookkeeping";
 
 export async function getList(type = "") {
@@ -195,6 +196,7 @@ export async function updateForWeb({
   carLeasing = ""
 }) {
   try {
+    storeUpdateFromWeb.getState().setloading()
     const reqData = {
       carId,
       carBookKeepingId,
@@ -205,17 +207,11 @@ export async function updateForWeb({
       carBookKeepingSoldPrice: parseInt(carBookKeepingSoldPrice),
       carLeasing: carLeasing === "none" ? "" : carLeasing
     }
-    console.log(reqData);
-    // storeMarkSold.getState().setloading()
-    // const reqData = {
-    //   carId,
-    //   carBookKeepingId
-    // // }
-    // const result = await patchCarBookKeeping("/mark-sold",reqData)
-    // if (result.message !== "ok") throw result
-    // storeMarkSold.getState().setdata()
+    const result = await patchCarBookKeeping("/update-web",reqData)
+    if (result.message !== "ok") throw result
+    storeUpdateFromWeb.getState().setdata()
   } catch (e) {
-    // storeMarkSold.getState().reset()
+    storeUpdateFromWeb.getState().reset()
     throw e?.rawmessage
   }
 }
