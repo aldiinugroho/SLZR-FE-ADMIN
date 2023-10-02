@@ -9,16 +9,18 @@ import moment from 'moment/moment';
 import { formatNumber } from '../../../../utils';
 import { ModelResponseStok } from './state';
 import { useNavigate } from 'react-router-dom';
+import { storeMarkSold } from './storev1marksold';
 
 function Index({
   type = "Ready"
 }) {
   const store = storeListStok((state) => state)
+  const storemarksold = storeMarkSold((state) => state)
 
   return(
     <Custombody>
-      {store.loading && (
-          <Customspinner />
+      {(store.loading || storemarksold.loading) && (
+        <Customspinner />
       )}
       <Sidebar>
         <Customheader />
@@ -157,9 +159,16 @@ function TableShow({
     navigate(`/stok/proses/CBFI2/${data.carBookKeeping[0].carBookKeepingId}`)
   }
 
-  function updatemarksold(data = new ModelResponseStok({})) {
-    console.log(data);
-    // navigate(`/stok/proses/CBFI2/${data.carBookKeeping[0].carBookKeepingId}`)
+  async function updatemarksold(data = new ModelResponseStok({})) {
+    try {
+      await requestCarBookKeeping.setMarkSold({
+        carId: data.carId,
+        carBookKeepingId: data.carBookKeeping[0]?.carBookKeepingId
+      })
+      navigate(`/stok/sold`)
+    } catch (error) {
+      errmsg(error)
+    }
   }
 
   return(
