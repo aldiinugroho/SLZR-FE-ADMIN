@@ -64,7 +64,8 @@ export async function getListBookedByCarBuyFrom(carBuyFromId = "") {
 export async function cancelBookedKeeping({
   carId = "",
   carBookKeepingId = "",
-  type = ""
+  type = "",
+  tabselector = ""
 }) {
   try {
     storeListStok.getState().setOnlyLoading()
@@ -74,7 +75,11 @@ export async function cancelBookedKeeping({
     }
     const result = await patchCarBookKeeping("/cancel",reqData)
     if (result.message !== "ok") throw result
-    await getList(type)
+    if (type === "Booked") {
+      await getListBookedByCarBuyFrom(tabselector)
+    } else {
+      await getList(type)
+    }
   } catch (e) {
     storeListStok.getState().resetOnlyLoading()
     if (typeof e === "string") {
