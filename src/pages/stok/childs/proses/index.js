@@ -122,6 +122,7 @@ function FormSubmit({
           carBuyFromId: buyfrom,
           carLeasing: params.leasing === "none" ? "" : params.leasing
         })
+        mainnavigate(params)
       }
       if (buyfrom === "CBFI2") {
         await requestCarBookKeeping.updateForWeb({
@@ -134,13 +135,31 @@ function FormSubmit({
           carBookKeepingSoldPrice: params.soldprice,
           carLeasing: params.leasing,
         })
+        mainnavigate(params)
       }
-      // navigate after success
-      alertmsg("Berhasil Update Data")
-      navigate("/stok")
     } catch (error) {
       alertmsg(error)
     }
+  }
+
+  function mainnavigate(params) {
+    if (params?.paymenttools === "CBKPT01") {
+      navigateaftersuccess()
+    } else {
+      navigateaftersuccesssold()
+    }
+  }
+
+  function navigateaftersuccess() {
+    // navigate after success
+    alertmsg("Berhasil Update Data")
+    navigate("/stok")
+  }
+
+  function navigateaftersuccesssold() {
+    // navigate after success
+    alertmsg("Berhasil Update Data")
+    navigate("/stok/sold")
   }
 
   return(
