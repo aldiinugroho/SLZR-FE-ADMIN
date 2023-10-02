@@ -124,8 +124,8 @@ function FormSubmit({
         console.log(params);
       }
       // // navigate after success
-      // alertmsg("Berhasil Update Data")
-      // navigate("/stok")
+      alertmsg("Berhasil Update Data")
+      navigate("/stok")
     } catch (error) {
       alertmsg(error)
     }
