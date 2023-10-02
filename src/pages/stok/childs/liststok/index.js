@@ -137,8 +137,7 @@ function TableShow({
     try {
       await requestCarBookKeeping.cancelBookedKeeping({
         carId: data.carId,
-        carBookKeepingId: data.carBookKeeping[0].carBookKeepingId,
-        type: data.carBookKeeping[0]?.carBookKeepingCarBuyFrom?.carBuyFromId
+        carBookKeepingId: data.carBookKeeping[0].carBookKeepingId
       })
     } catch (error) {
       errmsg(error)
