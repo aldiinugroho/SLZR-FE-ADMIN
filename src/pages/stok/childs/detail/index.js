@@ -160,8 +160,12 @@ function ComponentCellCarBookKeeping({
           <DataPopulate title={"Harga jual"} value={`Rp ${formatNumber(i?.carBookKeepingSoldPrice)}`} />
           <DataPopulate title={"Pemesanan"} value={i?.carBookKeepingCarBuyFrom?.carBuyFromId === "CBFI1" ? "Showroom" : "Website"} />
           {i?.carBookKeepingPaymentTools !== null && (<DataPopulate title={"Pembayaran"} value={i?.carBookKeepingPaymentTools?.carBookKeepingPaymentTools} />)}
+          {i?.transactionPayment !== null && (<DataPopulate title={"Status Pembayaran Booking Fee/DP"} value={i?.transactionPayment?.transactionPaymentStatus} />)}
+          {i?.transactionPayment !== null && (<DataPopulate title={"Nomor VA"} value={i?.transactionPayment?.transactionPaymentVA} />)}
+          {i?.transactionPayment !== null && (<DataPopulate title={"Bank"} value={i?.transactionPayment?.transactionPaymentBank.toUpperCase()} />)}
+          {i?.transactionPayment !== null && i?.transactionPayment.transactionPaymentStatus === "PAID" && (<DataPopulate title={"Tanggal Pembayaran Booking Fee/DP"} value={moment(i?.transactionPayment?.updatedAt).format("DD MMMM YYYY HH:MM")} />)}
           {i?.carLeasing !== null && <DataPopulate title={"Leasing"} value={i?.carLeasing?.carLeasing} />}
-          <DataPopulate title={"Tanggal"} value={moment(i?.createdAt).format("DD MMMM YYYY")} />
+          <DataPopulate title={"Tanggal Booking"} value={moment(i?.createdAt).format("DD MMMM YYYY")} />
         </tbody>
       </table>
     </div>

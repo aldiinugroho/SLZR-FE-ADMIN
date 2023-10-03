@@ -42,6 +42,7 @@ class ModelResponseStokCarBookKeepingTransactionPayment {
   transactionPaymentAmount = 0
   transactionPaymentVA = ""
   transactionPaymentExpiry = ""
+  updatedAt = new Date()
   constructor({
     transactionPaymentId = "",
     midtransTransactionId = "",
@@ -49,7 +50,8 @@ class ModelResponseStokCarBookKeepingTransactionPayment {
     transactionPaymentBank = "",
     transactionPaymentAmount = 0,
     transactionPaymentVA = "",
-    transactionPaymentExpiry = ""
+    transactionPaymentExpiry = "",
+    updatedAt = new Date()
   }) {
     this.transactionPaymentId = transactionPaymentId
     this.midtransTransactionId = midtransTransactionId
@@ -58,6 +60,7 @@ class ModelResponseStokCarBookKeepingTransactionPayment {
     this.transactionPaymentAmount = transactionPaymentAmount
     this.transactionPaymentVA = transactionPaymentVA
     this.transactionPaymentExpiry = transactionPaymentExpiry
+    this.updatedAt = updatedAt
   }
 }
 
