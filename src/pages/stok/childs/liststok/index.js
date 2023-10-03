@@ -234,13 +234,28 @@ function TableShow({
                           <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingSoldPrice)}</td>
                           <td className="styletablecell">Rp {formatNumber(i?.carBookKeeping[0]?.carBookKeepingBookedFee)}</td>
                           <td>
-                            <button onClick={() => cencelprocess(i)}>cancel</button>
-                            <button onClick={() => detaildata(i)}>detail</button>
-                            {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
-                              <button onClick={() => updatemarksold(i)}>tandai terjual</button>
+                            {i?.carBookKeeping[0]?.transactionPayment !== null && 
+                            i?.carBookKeeping[0]?.transactionPayment.transactionPaymentStatus === "PAID" && (
+                              <React.Fragment>
+                                <button onClick={() => cencelprocess(i)}>cancel</button>
+                                <button onClick={() => detaildata(i)}>detail</button>
+                                {i?.carBookKeeping[0]?.carBookKeepingPaymentTools !== null && (
+                                  <button onClick={() => updatemarksold(i)}>tandai terjual</button>
+                                )}
+                                {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
+                                  <button onClick={() => updatefromweb(i)}>proses</button>
+                                )}
+                              </React.Fragment>
                             )}
-                            {i?.carBookKeeping[0]?.carBookKeepingPaymentTools === null && (
-                              <button onClick={() => updatefromweb(i)}>proses</button>
+                            {i?.carBookKeeping[0]?.transactionPayment !== null && 
+                            i?.carBookKeeping[0]?.transactionPayment.transactionPaymentStatus === "PENDING" && (
+                              <div style={{
+                                fontSize: 12,
+                                backgroundColor: "orange",
+                                padding: 5,
+                                borderRadius: 5,
+                                fontWeight: "bold"
+                              }}>Menunggu pembayaran</div>
                             )}
                           </td>
                         </React.Fragment>

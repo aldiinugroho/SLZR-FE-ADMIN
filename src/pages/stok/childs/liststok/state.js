@@ -34,6 +34,33 @@ class ModelResponseStokCarBookKeepingPaymentTools {
   }
 }
 
+class ModelResponseStokCarBookKeepingTransactionPayment {
+  transactionPaymentId = ""
+  midtransTransactionId = ""
+  transactionPaymentStatus = ""
+  transactionPaymentBank = ""
+  transactionPaymentAmount = 0
+  transactionPaymentVA = ""
+  transactionPaymentExpiry = ""
+  constructor({
+    transactionPaymentId = "",
+    midtransTransactionId = "",
+    transactionPaymentStatus = "",
+    transactionPaymentBank = "",
+    transactionPaymentAmount = 0,
+    transactionPaymentVA = "",
+    transactionPaymentExpiry = ""
+  }) {
+    this.transactionPaymentId = transactionPaymentId
+    this.midtransTransactionId = midtransTransactionId
+    this.transactionPaymentStatus = transactionPaymentStatus
+    this.transactionPaymentBank = transactionPaymentBank
+    this.transactionPaymentAmount = transactionPaymentAmount
+    this.transactionPaymentVA = transactionPaymentVA
+    this.transactionPaymentExpiry = transactionPaymentExpiry
+  }
+}
+
 class ModelResponseStokCarBookKeeping {
   carBookKeepingId = ""
   carId = ""
@@ -48,6 +75,7 @@ class ModelResponseStokCarBookKeeping {
   carBookKeepingPaymentTools = null
   carBookKeepingCarBuyFrom = new ModelResponseStokCarBookKeepingCarBuyFrom({})
   carLeasing = null
+  transactionPayment = new ModelResponseStokCarBookKeepingTransactionPayment({})
   createdAt = new Date()
   constructor({
     carBookKeepingId = "",
@@ -63,6 +91,7 @@ class ModelResponseStokCarBookKeeping {
     carBookKeepingPaymentTools = new ModelResponseStokCarBookKeepingPaymentTools({}),
     carBookKeepingCarBuyFrom = new ModelResponseStokCarBookKeepingCarBuyFrom({}),
     carLeasing = new ModelResponseStokCarBookKeepingCarLeasing({}),
+    transactionPayment = new ModelResponseStokCarBookKeepingTransactionPayment({}),
     createdAt = new Date()
   }) {
     this.carBookKeepingId = carBookKeepingId
@@ -78,6 +107,7 @@ class ModelResponseStokCarBookKeeping {
     this.carBookKeepingPaymentTools = carBookKeepingPaymentTools === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(carBookKeepingPaymentTools)
     this.carBookKeepingCarBuyFrom = new ModelResponseStokCarBookKeepingCarBuyFrom(carBookKeepingCarBuyFrom)
     this.carLeasing = carLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(carLeasing)
+    this.transactionPayment = transactionPayment === null ? null : new ModelResponseStokCarBookKeepingTransactionPayment(transactionPayment)
     this.createdAt = createdAt
   }
 }
@@ -214,5 +244,6 @@ export {
   ModelResponseStokCarBrand,
   ModelResponseStokCarImage,
   ModelResponseStokCarOtherPrice,
-  ModelResponseStokCarShowroom
+  ModelResponseStokCarShowroom,
+  ModelResponseStokCarBookKeepingTransactionPayment
 }

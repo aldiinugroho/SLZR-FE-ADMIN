@@ -1,5 +1,5 @@
 import { storeStokDetail } from "../pages/stok/childs/detail/store";
-import { ModelResponseStok, ModelResponseStokCarBookKeeping, ModelResponseStokCarBookKeepingCarBuyFrom, ModelResponseStokCarBookKeepingCarLeasing, ModelResponseStokCarBookKeepingPaymentTools, ModelResponseStokCarBrand, ModelResponseStokCarImage, ModelResponseStokCarOtherPrice, ModelResponseStokCarShowroom } from "../pages/stok/childs/liststok/state";
+import { ModelResponseStok, ModelResponseStokCarBookKeeping, ModelResponseStokCarBookKeepingCarBuyFrom, ModelResponseStokCarBookKeepingCarLeasing, ModelResponseStokCarBookKeepingPaymentTools, ModelResponseStokCarBookKeepingTransactionPayment, ModelResponseStokCarBrand, ModelResponseStokCarImage, ModelResponseStokCarOtherPrice, ModelResponseStokCarShowroom } from "../pages/stok/childs/liststok/state";
 import { storeListStok } from "../pages/stok/childs/liststok/store";
 import { storeMarkSold } from "../pages/stok/childs/liststok/storev1marksold";
 import { storeCreateCarBookKeeping } from "../pages/stok/childs/proses/store";
@@ -23,7 +23,8 @@ export async function getList(type = "") {
         ...x,
         carBookKeepingCarBuyFrom: new ModelResponseStokCarBookKeepingCarBuyFrom(x?.msCarBuyFrom),
         carBookKeepingPaymentTools: x?.msCarBookKeepingPaymentTool === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(x?.msCarBookKeepingPaymentTool),
-        carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing)
+        carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing),
+        transactionPayment: x?.msTransactionPayment === null ? null : new ModelResponseStokCarBookKeepingTransactionPayment(x?.msTransactionPayment)
       }))
     }))
     console.log(parsedData);
@@ -50,7 +51,8 @@ export async function getListBookedByCarBuyFrom(carBuyFromId = "") {
         ...x,
         carBookKeepingCarBuyFrom: new ModelResponseStokCarBookKeepingCarBuyFrom(x?.msCarBuyFrom),
         carBookKeepingPaymentTools: x?.msCarBookKeepingPaymentTool === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(x?.msCarBookKeepingPaymentTool),
-        carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing)
+        carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing),
+        transactionPayment: x?.msTransactionPayment === null ? null : new ModelResponseStokCarBookKeepingTransactionPayment(x?.msTransactionPayment)
       }))
     }))
     console.log(parsedData);
@@ -107,7 +109,8 @@ export async function getDetailByCarId(carId = "") {
         ...x,
         carBookKeepingCarBuyFrom: new ModelResponseStokCarBookKeepingCarBuyFrom(x?.msCarBuyFrom),
         carBookKeepingPaymentTools: x?.msCarBookKeepingPaymentTool === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(x?.msCarBookKeepingPaymentTool),
-        carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing)
+        carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing),
+        transactionPayment: x?.msTransactionPayment === null ? null : new ModelResponseStokCarBookKeepingTransactionPayment(x?.msTransactionPayment)
       }))
     })
     console.log(parsedData);
@@ -161,7 +164,8 @@ export async function getDetailFromWebsiteOnly(carBookKeepingId = "") {
       ...x,
       carBookKeepingCarBuyFrom: new ModelResponseStokCarBookKeepingCarBuyFrom(x?.msCarBuyFrom),
       carBookKeepingPaymentTools: x?.msCarBookKeepingPaymentTool === null ? null : new ModelResponseStokCarBookKeepingPaymentTools(x?.msCarBookKeepingPaymentTool),
-      carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing)
+      carLeasing: x?.msCarLeasing === null ? null : new ModelResponseStokCarBookKeepingCarLeasing(x?.msCarLeasing),
+      transactionPayment: x?.msTransactionPayment === null ? null : new ModelResponseStokCarBookKeepingTransactionPayment(x?.msTransactionPayment)
     })
     console.log(responseData);
     storeDetailBookKeepingWebsite.getState().setdata(responseData)
