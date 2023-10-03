@@ -163,7 +163,7 @@ function ComponentCellCarBookKeeping({
           {i?.transactionPayment !== null && (<DataPopulate title={"Status Pembayaran Booking Fee/DP"} value={i?.transactionPayment?.transactionPaymentStatus} />)}
           {i?.transactionPayment !== null && (<DataPopulate title={"Nomor VA"} value={i?.transactionPayment?.transactionPaymentVA} />)}
           {i?.transactionPayment !== null && (<DataPopulate title={"Bank"} value={i?.transactionPayment?.transactionPaymentBank.toUpperCase()} />)}
-          {i?.transactionPayment !== null && i?.transactionPayment.transactionPaymentStatus === "PAID" && (<DataPopulate title={"Tanggal Pembayaran Booking Fee/DP"} value={moment(i?.transactionPayment?.updatedAt).format("DD MMMM YYYY HH:MM")} />)}
+          {/* {i?.transactionPayment !== null && i?.transactionPayment.transactionPaymentStatus === "PAID" && (<DataPopulate title={"Tanggal Pembayaran Booking Fee/DP"} value={moment(i?.transactionPayment?.updatedAt).format("DD MMMM YYYY HH:MM")} />)} */}
           {i?.carLeasing !== null && <DataPopulate title={"Leasing"} value={i?.carLeasing?.carLeasing} />}
           <DataPopulate title={"Tanggal Booking"} value={moment(i?.createdAt).format("DD MMMM YYYY")} />
         </tbody>
