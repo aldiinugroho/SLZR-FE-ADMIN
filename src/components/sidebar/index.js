@@ -4,6 +4,7 @@ import {Routing} from "../../App";
 import {storeSideBar} from "./state";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import { mainAssetsImage } from '../../assets';
 
 function Index({
     children
@@ -40,6 +41,14 @@ function Index({
         <div className="stylemainsidebar">
             <div className="stylesidebar">
                 <div className="stylesidebarimg">
+                    <img  
+                        width={"100%"}
+                        height={"100%"}
+                        style={{
+                            objectFit: "cover"
+                        }}
+                        src={mainAssetsImage.imagePNG.imgLzrAutos}
+                    />
                 </div>
                 {datanavbar.map((i,x) => {
                     if (i?.showSideBar === false) {
