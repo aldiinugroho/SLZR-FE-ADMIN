@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Customalert, Custombody, Customheader, Sidebar} from "../../../../components";
+import {Customalert, Custombody, Customheader, Customspinner, Sidebar} from "../../../../components";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {requestCar, requestShowroom} from "../../../../request";
@@ -7,9 +7,13 @@ import { storeListCar } from './state';
 import { DateFormatter } from '../../../../utils';
 
 function Index() {
+    const store = storeListCar((state) => state)
 
     return(
         <Custombody>
+            {(store.loading) && (
+                <Customspinner />
+            )}
             <Sidebar>
                 <Customheader />
                 <FormBody />
