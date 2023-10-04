@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Customalert, Custombody, Customheader, Sidebar} from "../../../../components";
+import {Customalert, Custombody, Customheader, Customspinner, Sidebar} from "../../../../components";
 import "./stylenewshowroom.css"
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
@@ -8,9 +8,13 @@ import {requestShowroom} from "../../../../request";
 import { storeListShowroom } from './state';
 
 function Index() {
+    const store = storeListShowroom((state) => state)
 
     return(
         <Custombody>
+            {(store.loading) && (
+                <Customspinner />
+            )}
             <Sidebar>
                 <Customheader />
                 <FormBody />
