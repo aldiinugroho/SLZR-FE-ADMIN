@@ -5,6 +5,7 @@ import {storeSideBar} from "./state";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import { mainAssetsImage } from '../../assets';
+import { useScreenWidth } from '../../utils';
 
 function Index({
     children
@@ -12,6 +13,7 @@ function Index({
     const storeState = storeSideBar((state) => state)
     const  navigate = useNavigate()
     const [datanavbar,setdatanavbar] = useState([])
+    const screenWidth = useScreenWidth()
 
     function clicktabsidebar(params = "") {
         // storeState.setselectedpage(params)
@@ -39,7 +41,8 @@ function Index({
 
     return(
         <div className="stylemainsidebar">
-            <div className="stylesidebar">
+            <div 
+            className={`stylesidebar stylesidebar`}>
                 <div className="stylesidebarimg">
                     <img  
                         width={"100%"}
