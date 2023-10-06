@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Customalert, Custombody, Custombutton, Customheader, Customtextareafield, Customtextfield} from "../../components";
+import {Customalert, Custombody, Custombutton, Customheader, Customspinner, Customtextareafield, Customtextfield} from "../../components";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { requestAuth } from '../../request';
@@ -35,6 +35,7 @@ function Bodyformlogin() {
         password = ""
     }) {
         try {
+            setloadingstate(true)
             const result = await requestAuth.login({
                 email,
                 password
@@ -42,7 +43,9 @@ function Bodyformlogin() {
             if (result) {
                 navigate("/home")
             }
+            setloadingstate(false)
         } catch (error) {
+            setloadingstate(false)
             customalert(error?.rawmessage)
         }
     }
@@ -62,60 +65,63 @@ function Bodyformlogin() {
     }
 
     return(
-        !loadingstate && <Formik
-            initialValues={{
-                email: "",
-                password: ""
-            }}
-            validationSchema={submitformvalidation}
-            onSubmit={(values, { setSubmitting }) => {
-                postLogin(values)
-            }}
-        >
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-                /* and other goodies */
-            }) => (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    // backgroundColor: "pink",
-                    alignItems: "center",
-                    padding: 10,
-                    marginTop: "5rem"
-                }}>
-                    <Customtextfield
-                        placeholder={"Email"}
-                        value={values.email}
-                        onChange={handleChange("email")}
-                        onBlur={handleBlur("email")}
-                        touched={touched.email}
-                        errorMessage={errors.email}
-                    />
-                    <div style={{ padding: 5 }}></div>
-                    <Customtextfield
-                        type={"password"}
-                        placeholder={"Password"}
-                        value={values.password}
-                        onChange={handleChange("password")}
-                        onBlur={handleBlur("password")}
-                        touched={touched.password}
-                        errorMessage={errors.password}
-                    />
-                    <div style={{ padding: 5 }}></div>
-                    <Custombutton
-                        onClick={handleSubmit}
-                        title={"Login"}
-                    />
-                </div>
-            )}
-        </Formik>
+        <React.Fragment>
+            {loadingstate && <Customspinner />}
+            <Formik
+                initialValues={{
+                    email: "",
+                    password: ""
+                }}
+                validationSchema={submitformvalidation}
+                onSubmit={(values, { setSubmitting }) => {
+                    postLogin(values)
+                }}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    /* and other goodies */
+                }) => (
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        // backgroundColor: "pink",
+                        alignItems: "center",
+                        padding: 10,
+                        marginTop: "5rem"
+                    }}>
+                        <Customtextfield
+                            placeholder={"Email"}
+                            value={values.email}
+                            onChange={handleChange("email")}
+                            onBlur={handleBlur("email")}
+                            touched={touched.email}
+                            errorMessage={errors.email}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <Customtextfield
+                            type={"password"}
+                            placeholder={"Password"}
+                            value={values.password}
+                            onChange={handleChange("password")}
+                            onBlur={handleBlur("password")}
+                            touched={touched.password}
+                            errorMessage={errors.password}
+                        />
+                        <div style={{ padding: 5 }}></div>
+                        <Custombutton
+                            onClick={handleSubmit}
+                            title={"Login"}
+                        />
+                    </div>
+                )}
+            </Formik>
+        </React.Fragment>
     )
 }
 
