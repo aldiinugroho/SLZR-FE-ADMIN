@@ -30,6 +30,7 @@ export async function getList(type = "") {
     console.log(parsedData);
     storeListStok.getState().setdata(parsedData)
   } catch (e) {
+    console.log(e);
     storeListStok.getState().reset()
     throw e?.rawmessage
   }

@@ -6,6 +6,6 @@
 }
 
 .bodycomponentchild {
-    width: 100rem;
-    /* position: relative; */
+    width: 100rem; /* Set max-width to 100rem */
+    overflow: auto;
 }

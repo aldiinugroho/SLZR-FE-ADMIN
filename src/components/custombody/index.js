@@ -2,7 +2,7 @@ import * as React from 'react';
 import "./stylecustombody.css"
 
 function Index({
-   children
+    children
 }) {
     return(
         <div className="bodycomponent" >

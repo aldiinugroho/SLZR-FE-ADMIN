@@ -95,8 +95,8 @@ function Index({
                         return (
                             <React.Fragment key={x}>
                                 <div
-                                     onClick={() => clicktabsidebar(i?.path)}
-                                     className="stylesidebartabnobottomborder">
+                                    onClick={() => clicktabsidebar(i?.path)}
+                                    className="stylesidebartabnobottomborder">
                                     {i?.name}
                                 </div>
                                 {i?.active && i?.childs.map((n,m) => {
@@ -128,7 +128,7 @@ function Index({
                     }
                 })}
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, width: "100%" }}>
                 {children}
             </div>
         </div>
