@@ -87,7 +87,7 @@ function TableShow() {
 
     return(
         <div style={{
-            height: "60rem",
+            height: "30rem",
             width: "100%",
             overflowY: "auto", // Keep overflowY as "auto"
             overflowX: "scroll", // Set overflowX to "scroll" to enable horizontal scrolling
