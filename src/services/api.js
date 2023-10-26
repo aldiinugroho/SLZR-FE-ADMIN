@@ -1,7 +1,7 @@
 import { LocalStorage } from "../configs/localstorage"
+import { secretKey } from "../secretkey"
 
-// PRODUCTION
-const MAINURL = "https://sslzr-service-production.onrender.com/v1/"
+const MAINURL = secretKey.MAIN_URL
 
 async function responseParser(data = null, error = null) {
     const reqUrl = data?.url
