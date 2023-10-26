@@ -1,6 +1,6 @@
 import { LocalStorage } from "../configs/localstorage"
 
-// STAGGING
+// PRODUCTION
 const MAINURL = "https://sslzr-service-production.onrender.com/v1/"
 
 async function responseParser(data = null, error = null) {
