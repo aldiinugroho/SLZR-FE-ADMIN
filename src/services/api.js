@@ -1,7 +1,7 @@
 import { LocalStorage } from "../configs/localstorage"
 
 // STAGGING
-const MAINURL = "https://sslzr-service-stagging.onrender.com/v1/"
+const MAINURL = "https://sslzr-service-production.onrender.com/v1/"
 
 async function responseParser(data = null, error = null) {
     const reqUrl = data?.url
