@@ -8,6 +8,7 @@ const CustomAlertProvider = ({ children }) => {
   const [alertdata, setalertdata] = useState([])
 
   const alertFunction = (message) => {
+    console.log(message);
     setalertdata((prevAlertdata) => [...prevAlertdata, message]);
   };
 

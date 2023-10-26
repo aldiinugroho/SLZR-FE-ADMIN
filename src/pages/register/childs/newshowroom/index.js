@@ -88,11 +88,14 @@ function TableShow() {
 
     return(
         <div style={{
-            display: "inline-block",
-            overflow: "scroll",
-            height: "20rem"
+            height: "60rem",
+            width: "100%",
+            overflowY: "auto", // Keep overflowY as "auto"
+            overflowX: "scroll", // Set overflowX to "scroll" to enable horizontal scrolling
         }}>
-            <table>
+            <table style={{
+                width: 1000
+            }}>
                 <thead>
                 <tr style={{ backgroundColor: "#B92929" }}>
                     <th className="styletablecell">No</th>

@@ -4,6 +4,8 @@ import {Routing} from "../../App";
 import {storeSideBar} from "./state";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import { mainAssetsImage } from '../../assets';
+import { useScreenWidth } from '../../utils';
 
 function Index({
     children
@@ -11,6 +13,7 @@ function Index({
     const storeState = storeSideBar((state) => state)
     const  navigate = useNavigate()
     const [datanavbar,setdatanavbar] = useState([])
+    const screenWidth = useScreenWidth()
 
     function clicktabsidebar(params = "") {
         // storeState.setselectedpage(params)
@@ -38,8 +41,17 @@ function Index({
 
     return(
         <div className="stylemainsidebar">
-            <div className="stylesidebar">
+            <div 
+            className={`stylesidebar stylesidebar`}>
                 <div className="stylesidebarimg">
+                    <img  
+                        width={"100%"}
+                        height={"100%"}
+                        style={{
+                            objectFit: "cover"
+                        }}
+                        src={mainAssetsImage.imagePNG.imgLzrAutos}
+                    />
                 </div>
                 {datanavbar.map((i,x) => {
                     if (i?.showSideBar === false) {
@@ -83,8 +95,8 @@ function Index({
                         return (
                             <React.Fragment key={x}>
                                 <div
-                                     onClick={() => clicktabsidebar(i?.path)}
-                                     className="stylesidebartabnobottomborder">
+                                    onClick={() => clicktabsidebar(i?.path)}
+                                    className="stylesidebartabnobottomborder">
                                     {i?.name}
                                 </div>
                                 {i?.active && i?.childs.map((n,m) => {
@@ -116,7 +128,7 @@ function Index({
                     }
                 })}
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, width: "100%" }}>
                 {children}
             </div>
         </div>
